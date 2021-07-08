@@ -1,6 +1,18 @@
 # devops
 A few devops concepts I learn
 
+## Resources
+
+[installing elk stack on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04) 
+<br>
+
+[Securing Nginx with Let's Encrypt on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04)
+<br>
+
+[Installing Nginx on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)
+<br>
+
+[HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
 
  ## Commands
 
@@ -19,5 +31,20 @@ A few devops concepts I learn
 `bash cheatsheet` <br>
 
 `curl -X POST -d 'json={"foo":"bar"}' http://URL/example.cgi` - post data defined in json to a given URL
+<br>
+
+`ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'` or `curl -4 icanhazip.com` - get a server's IP addresses from bash<br>
+
+`nslookup server1` - get ip address for server1<br>
+
+`systemctl start service1` - start service1<br>
+
+`systemctl restart service1` - restart service1<br>
+
+`systemctl reload service1` - reload service1 (for example: nginx) without dropping connections after making configuration changes<br>
+
+`systemctl enable service1` - automatically start 'service1' whenever the server boots up. Use `systemctl disable service1` to disable this behavior<br>
+
+`systemctl stop service1` - stop service1<br>
 
 ![title](./bash.png)
