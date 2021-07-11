@@ -51,3 +51,7 @@ A few devops concepts I learn
 `systemctl stop service1` - stop service1<br>
 
 ![title](./bash.png)
+
+### Git commands
+
+`git reset --hard HEAD~1` - gets you back by one commit
