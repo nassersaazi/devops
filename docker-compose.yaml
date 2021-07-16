@@ -1,0 +1,148 @@
+version: '2'
+
+volumes:
+    prometheus_data: 
+    grafana_data:
+    certs:
+    conf:
+    vhost:
+    dhparam:
+    html:   
+
+networks:
+  nginx-proxy:
+  back-tier:
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - dhparam:/etc/nginx/dhparam
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-proxy-le
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    
+  prometheus:
+    image: prom/prometheus:v2.7.1
+    container_name: prometheus_container
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    expose: 
+      - 9090
+    ports:
+      - 9090:9090
+    links:
+      - cadvisor:cadvisor
+      - alertmanager:alertmanager
+    depends_on:
+      - cadvisor
+    networks:
+      - back-tier
+      - nginx-proxy
+    restart: unless-stopped
+    environment: 
+      - VIRTUAL_HOST=prometheus.ubuntunet.org
+      - VIRTUAL_PORT=9090
+      - LETSENCRYPT_HOST=prometheus.ubuntunet.org
+      - LETSENCRYPT_EMAIL=nasser.ssessaazi@ubuntunet.net
+
+  node-exporter:
+    image: prom/node-exporter:v0.17.0
+    container_name: node-exporter_container
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    expose: 
+      - 9100  
+    ports:
+      - 9100:9100
+    networks:
+      - back-tier
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:v0.16.0
+    container_name: alertmanager_container
+    expose: 
+      - 9093
+    ports:
+      - 9093:9093
+    volumes:
+      - ./alertmanager/:/etc/alertmanager/
+    networks:
+      - back-tier
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+    environment: 
+      - VIRTUAL_HOST=alertmanager.ubuntunet.org
+      - VIRTUAL_PORT=9093
+      - LETSENCRYPT_HOST=alertmanager.ubuntunet.org
+      - LETSENCRYPT_EMAIL=nasser.ssessaazi@ubuntunet.net
+
+  cadvisor:
+    image: google/cadvisor:v0.32.0
+    container_name: cadvisor_container
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    expose: 
+      - 8080 
+    ports:
+      - 8080:8080
+    networks:
+      - back-tier
+    restart: unless-stopped
+    
+
+  grafana:
+    image: grafana/grafana:5.4.5
+    container_name: grafana_container
+    depends_on:
+      - prometheus
+    expose: 
+      - 9093
+    ports:
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana
+     # - ./grafana/provisioning/:/etc/grafana/provisioning/
+    environment: 
+      - VIRTUAL_HOST=monitor.ubuntunet.org
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=monitor.ubuntunet.org
+      - LETSENCRYPT_EMAIL=nasser.ssessaazi@ubuntunet.net
+    networks:
+      - back-tier
+    restart: unless-stopped
+   
