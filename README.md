@@ -3,6 +3,10 @@ A few devops concepts I learn
 
 ## Resources
 
+[Awesome Prometheus Resources](https://github.com/roaldnefs/awesome-prometheus)<br>
+
+[Linux Interview Questions and Answers](https://www.youtube.com/watch?v=p3tvtXOg5rg)<br>
+
 [How to change default SSH port](https://www.ubuntu18.com/ubuntu-change-ssh-port/)<br>
 
 [Installing elk stack on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04) 
@@ -53,6 +57,8 @@ A few devops concepts I learn
 `systemctl stop service1` - stop service1<br>
 
 ![title](./bash.png)
+
+`openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout example.key -out example.crt -subj "/CN=example.com" -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"` - generate self signed certificate using openssl
 
 ### Git commands
 
