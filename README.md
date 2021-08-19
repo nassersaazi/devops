@@ -21,6 +21,8 @@ A few devops concepts I learn
 [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 <br>
 
+[Getting started with Postgre using Docker compose](https://medium.com/analytics-vidhya/getting-started-with-postgresql-using-docker-compose-34d6b808c47c)<br>
+
 [HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
 
  ## Commands
@@ -54,9 +56,12 @@ A few devops concepts I learn
 
 `systemctl enable service1` - automatically start 'service1' whenever the server boots up. Use `systemctl disable service1` to disable this behavior<br>
 
-`systemctl stop service1` - stop service1<br>
+`systemctl stop service1` - stop service1 <br>
+
+`docker rmi $(docker images --filter "dangling=true" -q --no-trunc)` - remove dangling images
 
 `openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout example.key -out example.crt -subj "/CN=example.com" -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"` - generate self signed certificate using openssl<br>
+
 
 ![title](./bash.png)
 
