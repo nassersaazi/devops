@@ -1,5 +1,5 @@
 # Documentation for monitoring of servers
-<hr>
+
 This documentation highlights how to set up prometheus and grafana for monitoring server activity
 
 ## Requirements

@@ -15,6 +15,10 @@ A few devops concepts I learn
 [Securing Nginx with Let's Encrypt on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04)
 <br>
 
+[How to Transfer Files with Rsync over SSH](https://linuxize.com/post/how-to-transfer-files-with-rsync-over-ssh/)<br>
+
+[How To Secure Apache with Let's Encrypt on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-secure-apache-with-let-s-encrypt-on-ubuntu-20-04)<br>
+
 [Installing Nginx on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)
 <br>
 
