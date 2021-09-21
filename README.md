@@ -27,6 +27,8 @@ A few devops concepts I learn
 
 [Getting started with Postgre using Docker compose](https://medium.com/analytics-vidhya/getting-started-with-postgresql-using-docker-compose-34d6b808c47c)<br>
 
+[The easiest way to delete a block in a file using Vim/Vi](https://thecodingbot.com/the-easiest-way-to-delete-a-block-in-a-file-using-vim-vi)<br>
+
 [HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
 
  ## Commands
@@ -41,7 +43,9 @@ A few devops concepts I learn
 
 `ctrl + r` - does a reverse search of terminal history<br>
 
-`ctrl + _` - undo<br> 
+`ctrl + _` - undo<br>
+
+`curl ifconfig.me` - find ip address of host machine<br>
 
 `bash cheatsheet` <br>
 
@@ -64,6 +68,10 @@ A few devops concepts I learn
 
 `docker rmi $(docker images --filter "dangling=true" -q --no-trunc)` - remove dangling images
 
+`docker logs --since=2m <container_id> // since last 2 minutes`
+
+`docker exec <nginx-proxy-container-id> cat /etc/nginx/conf.d/default.conf`
+
 `openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout example.key -out example.crt -subj "/CN=example.com" -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"` - generate self signed certificate using openssl<br>
 
 
@@ -74,3 +82,5 @@ A few devops concepts I learn
 ### Git commands
 
 `git reset --hard HEAD~1` - gets you back by one commit
+
+
