@@ -27,7 +27,8 @@
 2. Create docker compose file
    *  `vim docker-compose.yml`
 
-        ```version: '3.4'
+        ```
+        version: '3.4'
 
         volumes:
             prometheus_data:
@@ -107,7 +108,8 @@
 
 3. Configure prometheus
     
-    ```mkdir prometheus
+    ```
+    mkdir prometheus
     cd prometheus
     vim prometheus.yml
     ```
@@ -116,7 +118,8 @@
 
 4. Configure alert manager
     
-    ```mkdir alertmanager
+    ```
+    mkdir alertmanager
     cd alertmanager
     vim config.yml
     ```
@@ -125,7 +128,8 @@
 
 5. Configure alerting rules
 
-    ```cd ../prometheus
+    ```
+    cd ../prometheus
     vim alert.rules
     ```
 
@@ -141,7 +145,8 @@
         
    *  `vim docker-compose.yml`
 
-        ```node-exporter:
+        ```
+        node-exporter:
         image: prom/node-exporter:v0.17.0
         container_name: node-exporter_container
         volumes:
@@ -168,7 +173,8 @@
         
     *  `vim docker-compose.yml`
 
-        ```grafana:
+        ```
+        grafana:
         image: grafana/grafana:5.4.5
         container_name: grafana_container
         depends_on:
@@ -199,12 +205,55 @@
 
 ## Setting up node exporter instances on other servers to be scraped by prometheus
 
-If docker is installed on the server
-1. Follow the steps at [Set up node exporter service](#node-exporter)
+### CASE 1 : docker is installed on the server, so we run node exporter service as a docker container
 
-2. 
+1. Follow the steps at [Set up node exporter service](#set-up-node-exporter-service)
+
+2. Open port 9100 for incoming and outgoing traffic through the server firewall
+
+3. Edit the `prometheus.yml` file on the prometheus server to add the new server to the list of node exporter targets
+    
+    **Remember to replace `targets` with your own server ips**
+
+    ```
+    scrape_configs:
+    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+    - job_name: 'node'
+
+        # metrics_path defaults to '/metrics'
+        # scheme defaults to 'http'.
+
+        static_configs:
+        - targets: ['ip.of.server.1:9100']
+        - targets: ['ip.of.server.2:9100']
+        - targets: ['ip.of.server.3:9100']
+    ```
 
 
+### CASE 2 : we install node exporter directly on the server
+
+1. Become root
+   * `sudo su -`
+
+2. Follow the steps [here](https://prometheus.io/docs/guides/node-exporter/)
+
+3. Edit the `prometheus.yml` file on the prometheus server to add the new server to the list of node exporter targets
+    
+    **Remember to replace `targets` with your own server ips**
+
+    ```
+    scrape_configs:
+    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+    - job_name: 'node'
+
+        # metrics_path defaults to '/metrics'
+        # scheme defaults to 'http'.
+
+        static_configs:
+        - targets: ['ip.of.server.1:9100']
+        - targets: ['ip.of.server.2:9100']
+        - targets: ['ip.of.server.3:9100']
+    ```
 
 
 
