@@ -147,21 +147,22 @@
 
         ```
         node-exporter:
-        image: prom/node-exporter:v0.17.0
-        container_name: node-exporter_container
-        volumes:
-            - /proc:/host/proc:ro
-            - /sys:/host/sys:ro
-            - /:/rootfs:ro
-        command:
-            - '--path.procfs=/host/proc'
-            - '--path.sysfs=/host/sys'
-            - --collector.filesystem.ignored-mount-points
-            - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-        expose:
-            - "9100"
-
-        restart: unless-stopped
+            image: prom/node-exporter:v0.17.0
+            container_name: node-exporter_container
+            ports:
+                - "9100:9100"
+            volumes:
+                - ./proc:/host/proc:ro
+                - ./sys:/host/sys:ro
+                - ./rootfs:/rootfs:ro
+            command:
+                - '--path.procfs=/host/proc'
+                - '--path.sysfs=/host/sys'
+                - --collector.filesystem.ignored-mount-points
+                - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+            expose:
+                - "9100"
+            restart: unless-stopped
         ```
 
 ### Set up grafana service
@@ -256,11 +257,8 @@
     ```
 
 
+https://github.com/prometheus/node_exporter/tree/master/examples/systemd 
 
+ 
 
-
-
-
-
-
-
+https://github.com/prometheus/node_exporter/blob/master/examples/systemd/node_exporter.service 
