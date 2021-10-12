@@ -29,6 +29,8 @@ A few devops concepts I learn
 
 [The easiest way to delete a block in a file using Vim/Vi](https://thecodingbot.com/the-easiest-way-to-delete-a-block-in-a-file-using-vim-vi)<br>
 
+[A practical guide to logstash](https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/)
+
 [HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
 
  ## Commands
@@ -36,6 +38,14 @@ A few devops concepts I learn
 `rm -r directory1` - deletes directory1 and its contents from file system <br>
 
 `cat file1` - display contents of file1 in term <br>
+
+`echo -n "" > /path/to/file.txt` - delete contents of file.txt without deleting the file
+
+`sudo du -xh /var/log/* |grep '^\S*[0-9\.]\+G'|sort -rn` - check a folder's disk usage
+
+`tail -n 5 /path/to/file/` - reads the last 5 lines of a file<br>
+
+`tcpdump -A -i any dst port 5000` - check messages getting through port 5000
 
 `shopt -s histappend` - allows multiple sessions to write to history at the same time<br>
 
