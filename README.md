@@ -76,9 +76,11 @@ A few devops concepts I learn
 
 `systemctl stop service1` - stop service1 <br>
 
-`docker rmi $(docker images --filter "dangling=true" -q --no-trunc)` - remove dangling images
+`docker ps --format "table {{.Ports}}\t{{.Names}}"` - docker ps with port and name filters<br>
 
-`docker logs --since=2m <container_id> // since last 2 minutes`
+`docker rmi $(docker images --filter "dangling=true" -q --no-trunc)` - remove dangling images<br>
+
+`docker logs --since=2m <container_id> ` - check docker logs for container since last 2 minutes<br> 
 
 `docker exec <nginx-proxy-container-id> cat /etc/nginx/conf.d/default.conf`
 
