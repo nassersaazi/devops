@@ -43,6 +43,12 @@ A few devops concepts I learn
 
 `sudo du -xh /var/log/* |grep '^\S*[0-9\.]\+G'|sort -rn` - check a folder's disk usage
 
+`echo "$(tail -n 50 /home/pi/Documents/test)" > /home/pi/Documents/test` - truncate file ,leaving the last 50 lines
+ 
+`find / -type f -size +1024k` - find all files of size 1024k and above
+
+`du -h /var/log` - check disk usage for /var/log folder
+
 `tail -n 5 /path/to/file/` - reads the last 5 lines of a file<br>
 
 `tcpdump -A -i any dst port 5000` - check messages getting through port 5000
@@ -86,6 +92,17 @@ A few devops concepts I learn
 
 `openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes -keyout example.key -out example.crt -subj "/CN=example.com" -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"` - generate self signed certificate using openssl<br>
 
+`cat /proc/sys/vm/swappiness` - check system swapiness setting<br>
+
+`Check space: # free -m 
+Disable swap: # swapoff -a 
+
+Wait approx 30 sec 
+(use free -m to see the amount of swap used/available decrease over time)
+
+Enable swap: # swapon -a `
+
+`sudo sysctl vm.swappiness=x` - where x is the swap value you wish to set <br>
 
 ![title](./bash.png)
 
@@ -94,5 +111,7 @@ A few devops concepts I learn
 ### Git commands
 
 `git reset --hard HEAD~1` - gets you back by one commit
+
+`git add -p` - always use this command instead of `git add .` 
 
 
