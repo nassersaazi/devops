@@ -3,6 +3,10 @@ A few devops concepts I learn
 
 ## Resources
 
+[Difference between git log and git reflog](https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log)<br>
+
+[How to write a good commit message git](https://chris.beams.io/posts/git-commit/)<br>
+
 [Awesome Prometheus Resources](https://github.com/roaldnefs/awesome-prometheus)<br>
 
 [Linux Interview Questions and Answers](https://www.youtube.com/watch?v=p3tvtXOg5rg)<br>
@@ -110,7 +114,7 @@ Enable swap: # swapon -a `
 
 ### Git commands
 
-`git reset --hard HEAD~1` - gets you back by one commit
+`git reset --hard HEAD~1` - gets you back by one commit from the latest
 
 `git add -p` - always use this command instead of `git add .` 
 
