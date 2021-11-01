@@ -35,6 +35,7 @@ A few devops concepts I learn
 
 [A practical guide to logstash](https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/)
 
+
 [HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
 
  ## Commands
@@ -110,9 +111,7 @@ Enable swap: # swapon -a `
 
 ![title](./bash.png)
 
-
-
-### Git commands
+### About Git
 
 `git reset --hard HEAD~1` - gets you back by one commit from the latest
 
