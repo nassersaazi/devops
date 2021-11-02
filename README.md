@@ -7,6 +7,10 @@ A few devops concepts I learn
 
 [How to write a good commit message git](https://chris.beams.io/posts/git-commit/)<br>
 
+[Generating SSH keys for git](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)<br>
+
+[Contribute to open source](https://www.youtube.com/watch?v=vSdSFxIKy5w&list=PLseEp7p6EwiZgLPknY4ITJxfoo75wqxph&index=5)<br>
+
 [Awesome Prometheus Resources](https://github.com/roaldnefs/awesome-prometheus)<br>
 
 [Linux Interview Questions and Answers](https://www.youtube.com/watch?v=p3tvtXOg5rg)<br>
@@ -41,6 +45,8 @@ A few devops concepts I learn
  ## Commands
 
 `rm -r directory1` - deletes directory1 and its contents from file system <br>
+
+`ls ~/.ssh` - list your ssh keys<br> 
 
 `cat file1` - display contents of file1 in term <br>
 
@@ -77,15 +83,7 @@ A few devops concepts I learn
 
 `nslookup server1` - get ip address for server1<br>
 
-`systemctl start service1` - start service1<br>
-
-`systemctl restart service1` - restart service1<br>
-
 `systemctl reload service1` - reload service1 (for example: nginx) without dropping connections after making configuration changes<br>
-
-`systemctl enable service1` - automatically start 'service1' whenever the server boots up. Use `systemctl disable service1` to disable this behavior<br>
-
-`systemctl stop service1` - stop service1 <br>
 
 `docker ps --format "table {{.Ports}}\t{{.Names}}"` - docker ps with port and name filters<br>
 
@@ -99,13 +97,15 @@ A few devops concepts I learn
 
 `cat /proc/sys/vm/swappiness` - check system swapiness setting<br>
 
-`Check space: # free -m 
+```
+Check space: # free -m 
 Disable swap: # swapoff -a 
 
 Wait approx 30 sec 
 (use free -m to see the amount of swap used/available decrease over time)
 
-Enable swap: # swapon -a `
+Enable swap: # swapon -a 
+```
 
 `sudo sysctl vm.swappiness=x` - where x is the swap value you wish to set <br>
 
@@ -115,6 +115,24 @@ Enable swap: # swapon -a `
 
 `git reset --hard HEAD~1` - gets you back by one commit from the latest
 
-`git add -p` - always use this command instead of `git add .` 
+`git remote add upstream repo.git` - add an upstream of the original in case you have forked a repo
+
+# Sync your fork
+```
+git fetch upstream
+git checkout master
+git merge upstream/master
+```
+`git add -p` - always use this command instead of `git add .`
+
+`git checkout -b ＜new-branch＞` - create and switch to new branch<br>
+
+`git config --global credential.helper cache` - configure credential caching
+
+`git config --global --unset credential.helper cache` - clear the access token from the local computer<br>
+
+`git branch -vv` - check branch tracking activity<br>
+
+`git push -u origin branch-name` - set upstream remote branch 
 
 
