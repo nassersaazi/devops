@@ -76,6 +76,9 @@ A few devops concepts I learn
 
 `ctrl + _` - undo<br>
 
+`synclient TouchpadOff=1` - disable the touchpad
+
+`synclient TouchpadOff=0` - re-enable the touchpad
 `curl ifconfig.me` - find ip address of host machine<br>
 
 `bash cheatsheet` <br>
