@@ -45,6 +45,64 @@ GET syslog-received-on-tcp/_search
   }
 }
 
+GET logstash-2021.11.19-000001/_mapping
+
+PUT logstash-2021.11.19-000002
+{
+  "mappings": {
+    "properties": {
+      "location": {
+        "type": "geo_point"
+      }
+    }
+  }
+}
+
+POST _reindex
+{
+  "source": {
+    "index": "logstash-2021.11.19-000001"
+  },
+  "dest": {
+    "index": "logstash-2021.11.19-000002"
+  }
+}
+
+// creating a template
+PUT _template/geo-mapping
+{
+  "order": 1,
+  "version": 10,
+  "index_patterns": [
+    "logstash-*"
+  ],
+  "mappings": {
+      "properties": {
+        "geoip": {
+          "dynamic": true,
+          "properties": {
+            "ip": {
+              "type": "ip"
+            },
+            "location": {
+              "type": "geo_point"
+            },
+            "latitude": {
+              "type": "half_float"
+            },
+            "longitude": {
+              "type": "half_float"
+            }
+          }
+        }
+      }
+    
+  }
+}
+
+docker exec -it logstash /bin/bash -c "bin/logstash-plugin install logstash-filter-elapsed"
+
+
 ### Resources
 
 [A few good ways to use Elasticsearch devtools for search](https://www.youtube.com/watch?v=CCTgroOcyfM)<br>
