@@ -19,7 +19,7 @@ This documentation highlights how to configure syslog to send messages to logsta
 
  Above the line “#First some standard log files. Log by facility” we’ll add the following:
    ```bash
-   *.*                         @@monitor-dar:5000
+   *.*                         @@monitor-dar.ubuntunet.net:5000
    ```
 
  *.* indicates to forward all messages. @@  instructs the rsyslog utility to transmit data through TCP connections.
