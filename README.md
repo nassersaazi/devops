@@ -3,6 +3,12 @@ A few devops concepts I learn
 
 ## Resources
 
+[Open source projects to contribute to](https://awesomeopensource.com/)
+
+[How to fix dual boot problems](https://www.youtube.com/watch?v=gEB6JEYZekE)
+
+[Use Logstash pipelines for parsing](https://www.elastic.co/guide/en/logstash/6.8/logstash-config-for-filebeat-modules.html)
+
 [Difference between git log and git reflog](https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log)<br>
 
 [How to write a good commit message git](https://chris.beams.io/posts/git-commit/)<br>
@@ -39,9 +45,11 @@ A few devops concepts I learn
 
 [Getting started with Postgre using Docker compose](https://medium.com/analytics-vidhya/getting-started-with-postgresql-using-docker-compose-34d6b808c47c)<br>
 
+[All about file permissions](https://www.linode.com/docs/guides/modify-file-permissions-with-chmod/)<br>
+
 [The easiest way to delete a block in a file using Vim/Vi](https://thecodingbot.com/the-easiest-way-to-delete-a-block-in-a-file-using-vim-vi)<br>
 
-[A practical guide to logstash](https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/)
+[A practical guide to logstash](https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/)<br>
 
 
 [HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
@@ -54,32 +62,43 @@ A few devops concepts I learn
 
 `cat file1` - display contents of file1 in term <br>
 
-`echo -n "" > /path/to/file.txt` - delete contents of file.txt without deleting the file
+`echo -n "" > /path/to/file.txt` - delete contents of file.txt without deleting the file<br>
 
-`sudo du -xh /var/log/* |grep '^\S*[0-9\.]\+G'|sort -rn` - check a folder's disk usage
+`sudo du -xh /var/log/* |grep '^\S*[0-9\.]\+G'|sort -rn` - check a folder's disk usage<br>
 
-`echo "$(tail -n 50 /home/pi/Documents/test)" > /home/pi/Documents/test` - truncate file ,leaving the last 50 lines
+`echo "$(tail -n 50 /home/pi/Documents/test)" > /home/pi/Documents/test` - truncate file ,leaving the last 50 lines<br>
  
-`find / -type f -size +1024k` - find all files of size 1024k and above
+`find / -type f -size +1024k` - find all files of size 1024k and above<br>
 
-`du -h /var/log` - check disk usage for /var/log folder
+`du -h /var/log` - check disk usage for /var/log folder<br>
 
 `tail -n 5 /path/to/file/` - reads the last 5 lines of a file<br>
 
-`tcpdump -A -i any dst port 5000` - check messages getting through port 5000
+`tcpdump -A -i any dst port 5000` - check messages getting through port 5000<br>
 
 `shopt -s histappend` - allows multiple sessions to write to history at the same time<br>
 
 `!!` - repeats the most recent command<br>
 
+`rsync -a -P -e "ssh -p SSH-PORT" local-file.zip user@remote-server:/remote-directory/` - transfer file to remote server via ssh
+
 `ctrl + r` - does a reverse search of terminal history<br>
 
 `ctrl + _` - undo<br>
 
-`synclient TouchpadOff=1` - disable the touchpad
+`synclient TouchpadOff=1` - disable the touchpad<br>
 
-`synclient TouchpadOff=0` - re-enable the touchpad
+`synclient TouchpadOff=0` - re-enable the touchpad<br>
+
 `curl ifconfig.me` - find ip address of host machine<br>
+
+`find . -name thisfile.txt` - find a file in Linux called thisfile.txt, it will look for it in current and sub-directories.<br>
+
+`find /home -name *.jpg` - Look for all .jpg files in the /home and directories below it<br>
+
+`find . -type f -empty` - Look for an empty file inside the current directory.<br>
+
+`find /home -user randomperson-mtime 6 -iname ".db"` - Look for all .db files (ignoring text case) that have been changed in the preceding 6 days by a user called randomperson.<br>
 
 `bash cheatsheet` <br>
 
@@ -104,6 +123,7 @@ A few devops concepts I learn
 
 `cat /proc/sys/vm/swappiness` - check system swapiness setting<br>
 
+`df -h | tee disk_usage.txt` - write df command output to disk_usage.txt<br>
 ```
 Check space: # free -m 
 Disable swap: # swapoff -a 
