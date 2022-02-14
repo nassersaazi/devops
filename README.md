@@ -5,6 +5,8 @@ A few devops concepts I learn
 
 [Open source projects to contribute to](https://awesomeopensource.com/)
 
+[Search for a word in vim](https://www.cyberciti.biz/faq/find-a-word-in-vim-or-vi-text-editor/)
+
 [How to fix dual boot problems](https://www.youtube.com/watch?v=gEB6JEYZekE)
 
 [Use Logstash pipelines for parsing](https://www.elastic.co/guide/en/logstash/6.8/logstash-config-for-filebeat-modules.html)
