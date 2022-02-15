@@ -40,6 +40,10 @@ A few devops concepts I learn
 [Installing Nginx on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)
 <br>
 
+[Install php8 for Apache and Nginx on Ubuntu](https://www.linode.com/docs/guides/install-php-8-for-apache-and-nginx-on-ubuntu/)<br>
+
+[Import and export mariaDB database](https://www.digitalocean.com/community/tutorials/how-to-import-and-export-databases-in-mysql-or-mariadb)<br>
+
 [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 <br>
 
@@ -47,12 +51,16 @@ A few devops concepts I learn
 
 [All about file permissions](https://www.linode.com/docs/guides/modify-file-permissions-with-chmod/)<br>
 
+[More on file permissions](https://kb.iu.edu/d/abdb)<br>
+
 [The easiest way to delete a block in a file using Vim/Vi](https://thecodingbot.com/the-easiest-way-to-delete-a-block-in-a-file-using-vim-vi)<br>
 
 [A practical guide to logstash](https://coralogix.com/blog/a-practical-guide-to-logstash-syslog-deep-dive/)<br>
 
 
 [HackerRank Interview Preparation Kit](https://www.hackerrank.com/interview/interview-preparation-kit)<br>
+
+[Installing MariaDB on Ubuntu](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04)<br>
 
  ## Commands
 
@@ -107,6 +115,8 @@ A few devops concepts I learn
 
 `ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//'` or `curl -4 icanhazip.com` - get a server's IP addresses from bash<br>
 
+`grep -r "string to be searched"  /path/to/dir` - search particular string in directory<br>
+
 `nslookup server1` - get ip address for server1<br>
 
 `systemctl reload service1` - reload service1 (for example: nginx) without dropping connections after making configuration changes<br>
@@ -130,6 +140,7 @@ Disable swap: # swapoff -a
 
 Wait approx 30 sec 
 (use free -m to see the amount of swap used/available decrease over time)
+
 
 Enable swap: # swapon -a 
 ```
