@@ -114,7 +114,31 @@
     vim prometheus.yml
     ```
 
-    Add prometheus configuration settings to the prometheus.yml file .Refer to the documentation [here](https://prometheus.io/docs/prometheus/latest/getting_started/) 
+    Prometheus collects metrics from targets by scraping metrics HTTP endpoints. Since Prometheus exposes data in the same manner about itself, it can also scrape and monitor its own health.
+
+    While a Prometheus server that collects only data about itself is not very useful, it is a good starting example. Save the following basic Prometheus configuration as a file named `prometheus.yml`:
+
+    ```bash
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: 'codelab-monitor'
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    scrape_interval: 5s
+
+    static_configs:
+      - targets: ['localhost:9090']
+    ```
 
 4. Configure alert manager
     
@@ -124,16 +148,38 @@
     vim config.yml
     ```
 
-    Add alertmanager configuration settings to the config.yml file .Refer to the documentation [here](https://prometheus.io/docs/alerting/latest/configuration/)
+    Add alertmanager configuration settings to the config.yml file .Follow the steps [here](https://prometheus.io/docs/alerting/latest/configuration/)
 
 5. Configure alerting rules
 
-    ```
+    ```bash
     cd ../prometheus
     vim alert.rules
     ```
 
-    Add alerting rules to the alert.rules file appropriately. Refer to the documentation [here](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
+    Add alerting rules to the alert.rules file appropriately. 
+
+    An example rules file with an alert would be:
+
+    ```bash
+    groups:
+    - name: example
+    rules:
+    - alert: HighRequestLatency
+        expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5
+        for: 10m
+        labels:
+        severity: page
+        annotations:
+        summary: High request latency
+    ```
+
+    The optional `for` clause causes Prometheus to wait for a certain duration between first encountering a new expression output vector element and counting an alert as firing for this element. In this case, Prometheus will check that the alert continues to be active during each evaluation for 10 minutes before firing the alert. Elements that are active, but not firing yet, are in the pending state.<br>
+
+    The `labels` clause allows specifying a set of additional labels to be attached to the alert. Any existing conflicting labels will be overwritten. The label values can be templated.<br>
+
+    The `annotations` clause specifies a set of informational labels that can be used to store longer additional information such as alert descriptions or runbook links. The annotation values can be templated.<br>
+
 
 
 ### Set up node exporter service
@@ -231,18 +277,74 @@
     ```
 
 
-### CASE 2 : we install node exporter directly on the server
+### CASE 2 : we install node exporter directly on the server and run it as a service
 
 1. Become root
    * `sudo su -`
 
-2. Follow the steps [here](https://prometheus.io/docs/guides/node-exporter/)
+2. The Prometheus Node Exporter is a single static binary that you can install via tarball. Once you've downloaded it from the Prometheus [downloads page](https://prometheus.io/download#node_exporter) move the node exporter binary to /usr/local/bin 
+    
+    ```bash
+    wget https://github.com/prometheus/node_exporter/releases/download/v*/node_exporter-*.*-amd64.tar.gz
+    tar xvfz node_exporter-*.*-amd64.tar.gz
+    sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/
+    ```
 
-3. Edit the `prometheus.yml` file on the prometheus server to add the new server to the list of node exporter targets
+3. Create a node_exporter user to run the node exporter service
+
+    ```bash
+    sudo useradd -rs /bin/false node_exporter
+    ```
+
+4. Create a node_exporter service file under systemd.
+
+    ```bash
+    sudo tee /etc/systemd/system/node_exporter.service<<EOF
+    [Unit]
+    Description=Node Exporter
+    After=network.target
+    
+    [Service]
+    User=node_exporter
+    Group=node_exporter
+    Type=simple
+    ExecStart=/usr/local/bin/node_exporter
+    
+    [Install]
+    WantedBy=multi-user.target
+    EOF
+    ```
+
+5. Reload the system daemon and start the node exporter service.
+
+    ```bash
+    sudo systemctl daemon-reload
+    sudo systemctl start node_exporter
+    sudo systemctl enable node_exporter
+    ```
+
+6. Check the status of node exporter if it is running in active state.
+
+    ```bash
+    sudo systemctl status node_exporter
+    ```
+
+7. Check the status of node exporter if it is running in active state.
+
+    ```bash
+    sudo systemctl status node_exporter
+    ```
+   
+   You can see all the server metrics or node metrics from the following link.
+
+    ```bash
+    http://<Node-IP>:9100/metrics
+    ```
+8. Edit the `prometheus.yml` file on the prometheus server to add the new server to the list of node exporter targets
     
     **Remember to replace `targets` with your own server ips**
 
-    ```
+    ```bash
     scrape_configs:
     # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
     - job_name: 'node'
@@ -257,8 +359,11 @@
     ```
 
 
+## Resources
+
 https://github.com/prometheus/node_exporter/tree/master/examples/systemd 
 
+https://docs.vmware.com/en/Management-Packs-for-vRealize-Operations-Manager/1.5.2/kubernetes-solution/GUID-A1B68BE5-EF38-48E1-AA80-FD71E6F19989.html
  
 
 https://github.com/prometheus/node_exporter/blob/master/examples/systemd/node_exporter.service 
