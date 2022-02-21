@@ -29,10 +29,14 @@ A few devops concepts I learn
 
 [How to change default SSH port](https://www.ubuntu18.com/ubuntu-change-ssh-port/)<br>
 
+[Set up firewall on ubuntu](https://www.ubuntu18.com/ubuntu-18-ufw-firewall/)<br>
+
 [Installing elk stack on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04) 
 <br>
 
 [Install LAMP on Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04)<br>
+
+[Install wordpress on Ubuntu with LAMP stack](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-20-04-with-a-lamp-stack)
 
 [Securing Nginx with Let's Encrypt on Ubuntu >= 18.04](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04)
 <br>
