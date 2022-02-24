@@ -1,0 +1,13 @@
+--- rad_eap_test.o	2019-05-02 15:59:09.000000000 +0100
++++ rad_eap_test	2019-05-02 15:59:39.000000000 +0100
+@@ -231,6 +231,10 @@
+ 	EXTRA_EAPOL_ARGS="$EXTRA_EAPOL_ARGS -N89:x:00"
+ fi
+ 
++if [ -n "$SSID" ] ; then
++	EXTRA_EAPOL_ARGS="$EXTRA_EAPOL_ARGS -N30:s:'${MAC//:/-}:$SSID'"
++fi
++
+ # generation of configuration
+ echo "network={" > $CONF
+ echo "  ssid=\"$SSID\"" >> $CONF
