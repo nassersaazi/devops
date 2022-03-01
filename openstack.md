@@ -1,3 +1,7 @@
+Definition
+
+OpenStack is an open source platform that uses pooled virtual resources to build and manage private and public clouds
+
 Some open stack modules include
 
 -Nova(Compute)
