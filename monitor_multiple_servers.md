@@ -358,7 +358,7 @@ scrape_configs:
         - targets: ['ip.of.server.3:9100']
     ```
 
-## Setting up node exporter instances on other servers to be scraped by prometheus
+## Setting up mysql exporter on database server to be scraped by prometheus
 
 1. Become root
    * `sudo su -`
@@ -492,6 +492,7 @@ scrape_configs:
 https://github.com/prometheus/node_exporter/tree/master/examples/systemd 
 
 https://docs.vmware.com/en/Management-Packs-for-vRealize-Operations-Manager/1.5.2/kubernetes-solution/GUID-A1B68BE5-EF38-48E1-AA80-FD71E6F19989.html
- 
+
+https://computingforgeeks.com/install-and-configure-prometheus-mysql-exporter-on-ubuntu-centos/ 
 
 https://github.com/prometheus/node_exporter/blob/master/examples/systemd/node_exporter.service 
