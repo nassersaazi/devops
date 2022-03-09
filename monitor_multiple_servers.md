@@ -358,6 +358,134 @@ scrape_configs:
         - targets: ['ip.of.server.3:9100']
     ```
 
+## Setting up node exporter instances on other servers to be scraped by prometheus
+
+1. Become root
+   * `sudo su -`
+
+2. Create a dedicated Prometheus user and group
+   
+   ```bash
+   sudo groupadd --system prometheus
+   sudo useradd -s /sbin/nologin --system -g prometheus prometheus
+   ```
+
+   This user will manage the exporter service.
+
+3. Download and install Prometheus MySQL exporter
+
+   This should be done on MySQL / MariaDB servers, both slaves and master servers. You may need to check [Prometheus MySQL exporter releases page](https://github.com/prometheus/mysqld_exporter/releases) for the latest release, then export the latest version  to **VER** variable as shown below:
+   
+   * `curl -s https://api.github.com/repos/prometheus/mysqld_exporter/releases/latest   | grep browser_download_url | grep linux-amd64 |  cut -d '"' -f 4 | wget -qi -`
+
+4. Move the mysqld exporter binary to /usr/local/bin
+
+   ```bash
+   tar xvf mysqld_exporter-*.linux-amd64.tar.gz
+   sudo mv mysqld_exporter-*.linux-amd64/mysqld_exporter /usr/local/bin
+   ```
+
+5. Create Prometheus exporter database user with the required grants.
+
+   * `mysql -u root -p`
+
+   ```bash
+   CREATE USER 'mysqld_exporter'@'localhost' IDENTIFIED BY 'StrongPassword' WITH MAX_USER_CONNECTIONS 2;
+   GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'mysqld_exporter'@'localhost';
+   FLUSH PRIVILEGES;
+   EXIT
+   ```
+   
+   ** Remember to replace 'StrongPassword' with an appropriately strong password **
+
+   If you have a Master-Slave database architecture, create user on the master servers only.
+
+   **WITH MAX_USER_CONNECTIONS 2** is used to set a max connection limit for the user to avoid overloading the server with monitoring scrapes under heavy load.
+
+6. Create database credentials file
+
+   ```bash
+   sudo tee /etc/.mysqld_exporter.cnf<<EOF
+   [client]
+   user=mysqld_exporter
+   password=StrongPassword
+   EOF
+   ```
+
+7. Set ownership permissions:
+
+   * `sudo chown root:prometheus /etc/.mysqld_exporter.cnf`
+
+8. Create a mysqld_exporter service file under systemd
+  
+   ```bash
+   sudo tee /etc/systemd/system/mysql_exporter.service<<EOF
+   [Unit]
+   Description=Prometheus MySQL Exporter
+   After=network.target
+   User=prometheus
+   Group=prometheus
+
+   [Service]
+   Type=simple
+   Restart=always
+   ExecStart=/usr/local/bin/mysqld_exporter \
+   --config.my-cnf /etc/.mysqld_exporter.cnf \
+   --collect.global_status \
+   --collect.info_schema.innodb_metrics \
+   --collect.auto_increment.columns \
+   --collect.info_schema.processlist \
+   --collect.binlog_size \
+   --collect.info_schema.tablestats \
+   --collect.global_variables \
+   --collect.info_schema.query_response_time \
+   --collect.info_schema.userstats \
+   --collect.info_schema.tables \
+   --collect.perf_schema.tablelocks \
+   --collect.perf_schema.file_events \
+   --collect.perf_schema.eventswaits \
+   --collect.perf_schema.indexiowaits \
+   --collect.perf_schema.tableiowaits \
+   --collect.slave_status \
+   --web.listen-address=<strong>0.0.0.0:9104</strong>
+
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+   ```
+   
+   If your server has a public and private network, you may need to replace **0.0.0.0:9104** with private IP, e.g. **192.168.4.5:9104**
+
+9. Reload the system daemon and start the mysql_exporter service.
+
+    ```bash
+    sudo systemctl daemon-reload
+    sudo systemctl start mysql_exporter
+    sudo systemctl enable mysql_exporter
+    ```
+
+10. Check the status of mysql exporter if it is running in active state.
+
+    ```bash
+    sudo systemctl status mysql_exporter
+    ```
+
+   You can see all the metrics from the following link.
+
+    ```bash
+    http://<Mysql-IP>:9104/metrics
+    ```
+11. Edit the `prometheus.yml` file on the prometheus server to add the new server to the list of mysql exporter targets
+
+    **Remember to replace `targets` with your own server ips**
+
+    ```bash
+    scrape_configs:
+    # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+    - job_name: 'mysql'
+
+        # metrics_path defaults to '/metrics'
+        # scheme defaults to 'http'.
 
 ## Resources
 
