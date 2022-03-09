@@ -116,7 +116,10 @@ A few devops concepts I learn
 
 `find /home -name *.jpg` - Look for all .jpg files in the /home and directories below it<br>
 
+`*/5 * * * * root    /usr/local/nagios/sbin/nsca_check_disk 2>&1 | /usr/bin/logger -t nsca_check_disk` - send cron job output to syslog<br>
 `find . -type f -empty` - Look for an empty file inside the current directory.<br>
+
+` sudo ufw status numbered` - check ufw status in numbered form (makes it easy to delete with numbers.<br>
 
 `find /home -user randomperson-mtime 6 -iname ".db"` - Look for all .db files (ignoring text case) that have been changed in the preceding 6 days by a user called randomperson.<br>
 
