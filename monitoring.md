@@ -46,6 +46,71 @@ Such logs include the basic system logs for any linux system e.g ssh logs ,cron 
     sudo systemctl restart rsyslog.service
     ```
 
+### Set up Mysql to send logs to elk
+
+1. Enable mysql logging (by default it is set to false)
+
+    ```bash
+    mysql -u root -p
+    SET GLOBAL general_log_file='/var/log/mysql/mysql.log';
+    SET GLOBAL general_log = 1;
+    SET GLOBAL slow_query_log_file='/var/log/mysql/mysql-slow.log';
+    SET GLOBAL slow_query_log = 1;
+    exit;
+    ```
+
+2. Install [filebeat service](#set-up-filebeat-service) and configure mysql module on database server
+
+
+### Set up filebeat service
+
+1. Install filebeat
+
+   ```bash
+   curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-oss-7.15.1-amd64.deb
+   sudo dpkg -i filebeat-oss-7.15.1-amd64.deb
+   ```
+
+2. Configure the inputs
+
+   ```bash
+   vim /etc/filebeat/filebeat.yml
+   ```
+
+3. Configure modules(optional)
+   
+   ```bash
+   sudo filebeat modules list
+   sudo filebeat modules enable <module name>
+   sudo filebeat modules disable <module name>
+   ```
+4. Configure output to logstash
+
+   ```bash
+   ## Comment out elasticsearch output
+   #output.elasticsearch:
+   #  hosts: ["localhost:9200"]
+   output.logstash:
+     hosts: ["your-logstash-host:your-ssl-port"]
+     loadbalance: true
+     ssl.enabled: true
+   ```
+
+5. Validate configuration by running filebeat in terminal
+
+   ```bash
+   sudo filebeat -e -c /etc/filebeat/filebeat.yml
+   ```
+
+6. Start filebeat
+
+   ```bash
+   sudo systemctl enable filebeat
+   sudo systemctl start filebeat
+   ``` 
+      
+   
+
 ### Set up Apache to send logs to elk
 
 The rsyslog [text file input module (imfile)](https://www.rsyslog.com/doc/v8-stable/configuration/modules/imfile.html), provides the ability to convert any standard text file into a syslog message. This module can read a log file line by line while passing each read line to rsyslog engine rules, which then applies filter conditions and selects which actions needs to be carried out. Empty lines are not processed, as they would result in empty syslog records. They are simply ignored.
