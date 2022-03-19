@@ -84,6 +84,9 @@ Such logs include the basic system logs for any linux system e.g ssh logs ,cron 
    sudo filebeat modules enable <module name>
    sudo filebeat modules disable <module name>
    ```
+   
+   Additional configuration can be done on module files in the folder `/etc/filebeat/modules.d`
+
 4. Configure output to logstash
 
    ```bash
