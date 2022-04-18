@@ -1,13 +1,9 @@
 # devops
 A few devops concepts I learn
 
-## Resources
+## [Resources](./resources.md)
 
-./resources.md
-
-## Commands
-
-./commands.md
+## [Commands](./commands.md)
 
 ### About Git
 
@@ -31,5 +27,5 @@ git merge upstream/master
 
 `git branch -vv` - check branch tracking activity<br>
 
-`git push -u origin branch-name` - set upstream remote branch 
+`git push -u origin branch-name` - set upstream remote branch
 
