@@ -3,17 +3,17 @@ A few devops concepts I learn
 
 ## Resources
 
-../resources.md
+./resources.md
 
 ## Commands
 
-..commands.md
+./commands.md
 
 ### About Git
 
 `git reset --hard HEAD~1` - gets you back by one commit from the latest
 
-`git remote add upstream repo.git` - add an upstream of the original in case you have forked a repo
+`git remote add upstream forked-repo.git` - add an upstream of the original in case you have forked a repo
 
 # Sync your fork
 ```

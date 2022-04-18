@@ -56,7 +56,7 @@
 [How To Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
 <br>
 
-[How to live tails docker logs](https://www.papertrail.com/solution/tips/how-to-live-tail-docker-logs/)
+[How to live tails docker logs](https://www.papertrail.com/solution/tips/how-to-live-tail-docker-logs/)<br>
 
 [Getting started with Postgre using Docker compose](https://medium.com/analytics-vidhya/getting-started-with-postgresql-using-docker-compose-34d6b808c47c)<br>
 
