@@ -5,7 +5,7 @@ A few devops concepts I learn
 
 ## [Commands](./commands.md)
 
-### About Git
+## [About git](./git.md)
 
 `git reset --hard HEAD~1` - gets you back by one commit from the latest
 
