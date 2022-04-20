@@ -88,3 +88,4 @@ Enable swap: # swapon -a
 
 ![title](./bash.png)
 
+`curl -sSL https://raw.githubusercontent.com/alacritty/alacritty/master/extra/alacritty.info | tic -x -` - run this when you get error "'alacritty': unknown terminal type"
