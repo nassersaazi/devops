@@ -86,7 +86,7 @@ services:
     restart: unless-stopped
 
   alertmanager:
-    image: prom/alertmanager:v0.16.0
+    image: prom/alertmanager:v0.22.0
     container_name: alertmanager_container
     
     ports:
