@@ -28,6 +28,8 @@
 
 [Linux Interview Questions and Answers](https://www.youtube.com/watch?v=p3tvtXOg5rg)<br>
 
+[Sample configuration file for prometheus alertmanager](https://github.com/prometheus/alertmanager/blob/main/doc/examples/simple.yml)<br>
+
 [How to change default SSH port](https://www.ubuntu18.com/ubuntu-change-ssh-port/)<br>
 
 [Set up firewall on ubuntu](https://www.ubuntu18.com/ubuntu-18-ufw-firewall/)<br>
