@@ -435,7 +435,7 @@ We can send Apache logs to the logstash server by piping them through rsyslog as
     ```bash
     wget https://github.com/prometheus/node_exporter/releases/download/v1.3.1/node_exporter-1.3.1.linux-amd64.tar.gz
     tar xvfz node_exporter-1.3.1.linux-amd64.tar.gz
-    sudo mv node_exporter-1.3.1-amd64/node_exporter /usr/local/bin/
+    sudo mv node_exporter-1.3.1-linux-amd64/node_exporter /usr/local/bin/
     ```
 
 3. Create a node_exporter user to run the node exporter service

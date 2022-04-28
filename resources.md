@@ -2,6 +2,8 @@
 
 [Open source projects to contribute to](https://awesomeopensource.com/)
 
+[Make a bootable USB drive on any Linux distro](https://www.youtube.com/watch?v=rpGgTTFKwiU)
+
 [Search for a word in vim](https://www.cyberciti.biz/faq/find-a-word-in-vim-or-vi-text-editor/)
 
 [How to fix dual boot problems](https://www.youtube.com/watch?v=gEB6JEYZekE)
