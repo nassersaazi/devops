@@ -1,5 +1,8 @@
-About Git
+# About Git
 
+## Resources on git
+
+[Advanced git concepts you should know](https://link.medium.com/qQuL5FV6wqb)
 `git reset --hard HEAD~1` - gets you back by one commit from the latest
 
 `git remote add upstream forked-repo.git` - add an upstream of the original in case you have forked a repo
