@@ -10,19 +10,9 @@
 
 [Use Logstash pipelines for parsing](https://www.elastic.co/guide/en/logstash/6.8/logstash-config-for-filebeat-modules.html)
 
-[Difference between git log and git reflog](https://stackoverflow.com/questions/17857723/whats-the-difference-between-git-reflog-and-log)<br>
-
 [All about cron jobs](https://www.guru99.com/crontab-in-linux-with-examples.html#:~:text=Crontab%20stands%20for%20%E2%80%9Ccron%20table,periodically%20for%20the%20specific%20schedule.)<br>
 
 [How to run cron jobs](https://linuxize.com/post/cron-jobs-every-5-10-15-minutes/)<br>
-
-[How to write a good commit message git](https://chris.beams.io/posts/git-commit/)<br>
-
-[Understanding the Git workflow](https://sandofsky.com/workflow/git-workflow/)
-
-[Pro Git](https://git-scm.com/book/en/v2)
-
-[Generating SSH keys for git](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)<br>
 
 [Contribute to open source](https://www.youtube.com/watch?v=vSdSFxIKy5w&list=PLseEp7p6EwiZgLPknY4ITJxfoo75wqxph&index=5)<br>
 
