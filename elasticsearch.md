@@ -108,3 +108,7 @@ docker exec -it logstash /bin/bash -c "bin/logstash-plugin install logstash-filt
 [A few good ways to use Elasticsearch devtools for search](https://www.youtube.com/watch?v=CCTgroOcyfM)<br>
 
 [A few good ways to use Elasticsearch devtools for search part 3](https://www.youtube.com/watch?v=2KgJ6TQPIIA)<br>
+
+### Commands
+
+curl -XPOST 'http://localhost:9200/_cache/clear' --> clear elasticsearch cache
