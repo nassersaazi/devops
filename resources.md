@@ -14,6 +14,8 @@
 
 [How to run cron jobs](https://linuxize.com/post/cron-jobs-every-5-10-15-minutes/)<br>
 
+[Cronjob cheatsheet](https://crontab.guru/examples.html)<br>
+
 [Contribute to open source](https://www.youtube.com/watch?v=vSdSFxIKy5w&list=PLseEp7p6EwiZgLPknY4ITJxfoo75wqxph&index=5)<br>
 
 [Awesome Prometheus Resources](https://github.com/roaldnefs/awesome-prometheus)<br>
