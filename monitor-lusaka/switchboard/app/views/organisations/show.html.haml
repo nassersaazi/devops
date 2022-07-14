@@ -1,0 +1,128 @@
+- title @organisation.name
+- heading @organisation.name
+- subheading link_to t(:edit), edit_organisation_path(@organisation),class: 'btn btn-primary'
+
+.row
+  .col-xs-12.col-sm-6
+    %h4 eduroam
+    %hr
+
+    %dl.dl-horizontal
+      %dt= Organisation.human_attribute_name(:federation)
+      %dd= link_to @organisation.federation_name, federation_path(@organisation.federation)
+      %dt= Organisation.human_attribute_name(:domain_name)
+      %dd= @organisation.domain_name
+      %dt= Organisation.human_attribute_name(:eduroam_type)
+      %dd= @organisation.eduroam_type_text
+      %dt= Organisation.human_attribute_name(:identifier)
+      %dd= @organisation.identifier
+      %dt= Organisation.human_attribute_name(:stage)
+      %dd= @organisation.stage_text
+      %dt= Organisation.human_attribute_name(:info_url)
+      %dd= link_to @organisation.info_url
+      %dt= Organisation.human_attribute_name(:policy_url)
+      %dd= link_to @organisation.policy_url
+
+  = render @organisation.address
+
+  .col-xs-12.col-sm-6.col-md-3
+    %h4= Contact.model_name.human(count: @organisation.contacts.count)
+    = render partial: 'shared/contact', collection: @organisation.contacts
+
+%hr
+
+.row
+  - unless @organisation.eduroam_type == 'sp'
+    .col-xs-12.col-sm-4
+      %h4
+        = Realm.model_name.human(count: @organisation.realms.count)
+        %small
+          .links.pull-right
+            - if @organisation&.federation && @organisation.radius_servers.exists?
+              = link_to new_organisation_realm_path(@organisation) do
+                = fa_icon "plus-circle", text: t(:add)
+            - else
+              = t '.join_federation_first'
+
+      %table.table.table-hover
+        %tbody
+          - @organisation.realms.each do |realm|
+            %tr
+              %td= realm.domain_name
+              %td
+                .pull-right.small
+                  = link_to t(:edit), edit_organisation_realm_path(@organisation, realm)
+
+  .col-xs-12.col-sm-4
+    %h4
+      = Location.model_name.human(count: @organisation.locations.count)
+      %small
+        .links.pull-right
+          = link_to new_organisation_location_path(@organisation) do
+            = fa_icon "plus-circle", text: t(:add)
+    %table.table.table-hover
+      %tbody
+        - @organisation.locations.each do |location|
+          %tr
+            %td= link_to location.name, organisation_location_path(@organisation, location)
+            %td
+              .pull-right.small
+                = link_to t(:edit), edit_organisation_location_path(@organisation, location)
+
+
+  .col-xs-12.col-sm-4
+    %h4
+      = User.model_name.human(count: @organisation.users.count)
+      %small
+        .links.pull-right
+          = link_to new_organisation_membership_path(@organisation) do
+            = fa_icon "plus-circle", text: t(:add)
+    %table.table.table-hover
+      %tbody
+        - @organisation.memberships.each do |member|
+          %tr
+            %td= member.user.full_name
+            - if current_user.admin? or current_user.is_operator?(@organisation.federation)
+              %td
+                .pull-right.small
+                  = link_to t(:remove), [@organisation, member], method: :delete, data: { confirm: t(:sure?) }
+
+
+%hr
+
+.row
+  .col-xs-12.col-sm-6
+    %h4
+      IdP (Identity Providers) & SP (Service Providers)
+      %small.pull-right
+        = link_to new_organisation_radius_server_path(@organisation) do
+          = fa_icon "plus-circle", text: t(:add)
+
+    %table.table.table-hover
+      %thead
+        %tr
+          %th= "#{RadiusServer.human_attribute_name(:name)}"
+          %th= "#{RadiusServer.human_attribute_name(:ip_address)}"
+          %th= "#{RadiusServer.human_attribute_name(:product)}"
+          %th= t '.configurations'
+      = render @organisation.radius_servers
+
+
+  .col-xs-12.col-sm-6
+    %h4
+      = Equipment.model_name.human
+      - if policy(Equipment).new?
+        %small.pull-right
+          = link_to new_organisation_equipment_path(@organisation) do
+            = fa_icon "plus-circle", text: t(:add)
+
+
+    %table.table.table-hover
+      %thead
+        %tr
+          %th= "#{Equipment.human_attribute_name(:name)}"
+          %th= "#{Equipment.human_attribute_name(:ip_address)}"
+          %th= "#{Equipment.human_attribute_name(:nas_type)}"
+      = render @organisation.equipments
+
+

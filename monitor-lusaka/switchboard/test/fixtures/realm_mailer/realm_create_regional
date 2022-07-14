@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+</head>
+<body>
+<p>Dear Regional Operator of the African eduroam Confederation,</p>
+<p>
+A manager at
+<a href="http://localhost:3000/en/organisations/e2a048b0-c609-5876-ab35-478022f9b44a">UbuntuNet Alliance</a>
+in Malawi has just created the generic realm
+<strong>ubuntunet.net</strong>
+</p>
+<p>
+You can download an updated proxy.conf files for your Regional Proxy (RP) servers:
+<ul>
+</ul>
+</p>
+<p>
+Alternatively make sure the following snippet is created in the
+<code>proxy.conf</code>
+file of your Regional Proxies:<br/>
+<pre>realm ubuntunet.net {
+  pool = eduroam_mw
+  nostrip
+}</pre>
+</p>
+<p>
+Have a great day!<br/>
+eduroam Switchboard
+</p>
+
+</body>
+</html>

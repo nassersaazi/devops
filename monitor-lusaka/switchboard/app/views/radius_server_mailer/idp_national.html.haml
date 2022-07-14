@@ -1,0 +1,20 @@
+%p Dear National eduroam Operator of .#{@federation.tld.downcase},
+
+%p
+  A manager at #{@organisation.name} has just #{@action} the Identity Provider (IdP) server
+  %strong= @radius_server.name
+
+
+%p You can download updated configuration files for your federation Level RADIUS (FLR) servers:
+
+%ul
+  - @federation.radius_servers.each do |server|
+    %li
+      = "#{server.name}:"
+      %ul
+        %li= link_to "clients.conf", clients_radius_server_url(id: server.id)
+        %li= link_to "proxy.conf", proxy_radius_server_url(id: server.id)
+
+%p 
+  Have a great day!<br/>
+  eduroam Switchboard

@@ -1,0 +1,19 @@
+.col-xs-12.col-sm-6.col-md-3
+
+  %h4= Address.model_name.human
+
+  %hr
+
+  = address.street
+  %br
+  - unless address&.street2&.empty?
+    = address.street2
+    %br
+  - unless address&.pobox&.empty?
+    = address.pobox
+    %br
+  = "#{address&.zip} #{address.city}"
+  %br
+  = address.country_name
+  %br
+  = address.coordinates

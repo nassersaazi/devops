@@ -1,0 +1,56 @@
+# my global config
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+      monitor: 'UA Servers'
+
+# Load and evaluate rules in this file every 'evaluation_interval' seconds.
+rule_files:
+  - 'alert.rules'
+
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "alertmanager:9093"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    #- job_name: 'ua-server'
+
+    # Override the global default and scrape targets from this job every 5 seconds.
+    #scrape_interval: 5s
+
+    static_configs:
+      - targets: ['localhost:9090']
+
+
+  - job_name: 'cadvisor'
+
+    static_configs:
+    - targets: ['cadvisor:8080']
+
+  - job_name: 'mysql-exporter'
+
+    static_configs:
+    - targets: ['lms.ubuntunet.net:9104']
+
+
+  - job_name: 'node'
+
+    # Override the global default and scrape targets from this job every 60 seconds.
+    scrape_interval: 5m
+
+   
+    static_configs:
+      - targets: ['node-exporter:9100','monitor-dar.ubuntunet.net:9100','events.ubuntunet.net:9100','ds.eduid.africa:9100','filesender.ubuntunet.net:9100','ns2.ubuntunet.net:9100','ns1.ubuntunet.net:9100','dbs-mgr.ubuntunet.net:9100','pg-mgr.ubuntunet.net:9100','meet.ubuntunet.net:9100','edumeet-01.ubuntunet.net:9100','edumeet-02.ubuntunet.net:9100','edumeet-03.ubuntunet.net:9100','rps-mgr.ubuntunet.net:9100','rps-01.ubuntunet.net:9100','rps-02.ubuntunet.net:9100','db-01.ubuntunet.net:9100','db-02.ubuntunet.net:9100','db-03.ubuntunet.net:9100','lb-02.ubuntunet.net:9100','turn-01.ubuntunet.net:9100','turn-02.ubuntunet.net:9100','lms.ubuntunet.net:9100','research.ubuntunet.net:9100','intranet.ubuntunet.net:9100','surveys.ubuntunet.net:9100','www.ubuntunet.net:9100','196.32.215.185:9100','uidp.ubuntunet.net:9100','usp.ubuntunet.net:9100','uldap.ubuntunet.net:9100','196.32.213.90:9100','docker-01.ubuntunet.net:9100','docker-02.ubuntunet.net:9100','docker-03.ubuntunet.net:9100','196.32.212.216:9100','eduid.ubuntunet.net:9100','docker-m2.ubuntunet.net:9100','docker-m1.ubuntunet.net:9100','mercury.ubuntunet.net:9100','venus.ubuntunet.net:9100','earth.ubuntunet.net:9100']

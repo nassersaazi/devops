@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+robert:
+  name: Robert Banda
+  contactable: ua (Organisation)
+  email: robert.banda@ubuntunet.net
+  phone: 123 123 32 32
+  contact_type: 0
+  privacy: 1
+
+hillary:
+  name: Hillary Chiwenga
+  contactable: maren (Organisation)
+  email: chiwenga@maren.ac.mw
+  phone: 123 123 12 32
+  contact_type: 0
+  privacy: 0
+
+noc:
+  name: NOC Center
+  contactable: ua (Organisation)
+  email: noc@ubuntunet.net
+  phone: 123 123 12 32
+  contact_type: 1
+  privacy: 1

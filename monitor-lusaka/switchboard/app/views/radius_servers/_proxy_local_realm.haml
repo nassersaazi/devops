@@ -1,0 +1,5 @@
+realm #{proxy_local_realm.domain_name} {
+}
+- if proxy_local_realm.allow_subdomains
+  realm "~.+\.#{proxy_local_realm.domain_name.gsub('.', '\\.')}$" {
+  }

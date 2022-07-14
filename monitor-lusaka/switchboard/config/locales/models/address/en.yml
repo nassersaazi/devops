@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      address: 
+        one: Address
+        other: Addresses
+    attributes:
+      address:
+        street: Street
+        street2: Street2
+        pobox: P.O. Box
+        zip: Postcode
+        city: City
+        state: State/Region
+        country_code: Country
+        latitude: Latitude
+        longitude: Longitude
+        altitude: Altitude

@@ -1,0 +1,11 @@
+- title "#{t(:edit)} #{@equipment.name}"
+- heading "#{t(:edit)} #{@equipment.name}"
+
+= render 'form', organisation: @organisation, equipment: @equipment
+
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), [@organisation, @equipment],
+  method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

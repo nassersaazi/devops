@@ -1,0 +1,11 @@
+- title t(:edit) + " " + @organisation.name
+- heading t(:edit) + " " + @organisation.name
+
+= render 'form', organisation: @organisation, cancel_path: @organisation
+
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), @organisation,
+  method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

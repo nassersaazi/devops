@@ -1,0 +1,33 @@
+- title @radius_server.name
+- heading @radius_server.name
+
+.row
+  .col-xs-6
+    %dl.dl-horizontal
+      %dt= RadiusServer.human_attribute_name(:server_type)
+      %dd= @radius_server.server_type.text
+      %dt= RadiusServer.human_attribute_name(:product)
+      %dd= @radius_server.product.text
+      %dt= RadiusServer.human_attribute_name(:ip4)
+      %dd= @radius_server.ip4
+      %dt= RadiusServer.human_attribute_name(:ip6)
+      %dd= @radius_server.ip6
+      %dt= RadiusServer.human_attribute_name(:protocol)
+      %dd= @radius_server.protocol.text
+      %dt= RadiusServer.human_attribute_name(:auth)
+      %dd= @radius_server.auth
+      %dt= RadiusServer.human_attribute_name(:acct)
+      %dd= @radius_server.acct
+      %dt= RadiusServer.human_attribute_name(:auth_port)
+      %dd= @radius_server.auth_port
+      %dt= RadiusServer.human_attribute_name(:acct_port)
+      %dd= @radius_server.acct_port
+      %dt= RadiusServer.human_attribute_name(:secret)
+      %dd= @radius_server.upstream_secret
+
+.row
+  .col-xs-12
+    .pull-right
+      = link_to t(:back), polymorphic_path(@radius_server.radiusable)
+      = t(:or)
+      = link_to t(:edit), polymorphic_path([@radius_server.radiusable, @radius_server], action: :edit), class: "btn btn-primary"

@@ -1,0 +1,5 @@
+en:
+  organisations:
+    show:
+      join_federation_first: "Join a federation and add an IdP first"
+      configurations: Configurations

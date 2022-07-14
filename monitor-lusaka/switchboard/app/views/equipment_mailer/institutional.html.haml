@@ -1,0 +1,41 @@
+%p Dear eduroam IdP Manager for #{@organisation.name},
+
+%p
+  A manager at your organisation has just #{@action} the equipment
+  %strong= @equipment.name
+
+%p
+  You can download an updated clients.conf files for your RADIUS Identity Provider (IdP) servers:
+  %ul
+    - @organisation.radius_servers.each do |server|
+      %li
+        = "#{server.name}:"
+        = link_to "clients.conf", clients_radius_server_url(id: server.id)
+
+%p
+  Alternatively make sure the following snippet is #{@action} in the
+  %code clients.conf
+  file of your RADIUS IdP:<br/><br/>
+  %pre
+    - if @equipment.ip4?
+      :plain
+        client #{@equipment.name.downcase.tr(" ", "_")}.ip4 {
+          ipv4addr                      = #{@equipment.ip4}/#{@equipment.prefix4}
+          proto                         = #{@equipment.protocol}
+          secret                        = #{@equipment.upstream_secret}
+          require_message_authenticator = yes
+          nas_type                      = #{@equipment.nas_type}
+        }
+    - if @equipment.ip6?
+      :plain
+        client #{@equipment.name.downcase.tr(" ", "_")}.ip6 {
+          ipv6addr                      = #{@equipment.ip6}/#{@equipment.prefix6}
+          proto                         = #{@equipment.protocol}
+          secret                        = #{@equipment.upstream_secret}
+          require_message_authenticator = yes
+          nas_type                      = #{@equipment.nas_type}
+        }
+
+%p 
+  Have a great day!<br/>
+  eduroam Switchboard

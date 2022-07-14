@@ -1,0 +1,84 @@
+= form_with model: [organisation, equipment], local: true, class: "form-horizontal" do |form|
+
+  - if equipment.errors.any?
+    .alert.alert-danger{role:"alert"}
+      #error_explanation
+        %h2
+          = pluralize(equipment.errors.count, "error")
+          prohibited this equipment from being saved:
+
+        %ul
+          - equipment.errors.full_messages.each do |message|
+            %li= message
+
+  .form-group
+    = form.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :name, id: :equipment_name, required: true, class: "form-control"
+
+  .form-group
+    = form.label :location, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.collection_select(:location_id, organisation.locations.all, :id, :name, {}, class: "form-control", id: :equipment_location)
+
+  .form-group
+    = form.label :nas_kind, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :nas_kind, Equipment.nas_kind.options, {}, id: :equipment_nas_kind, class: "form-control"
+
+  .form-group
+    = form.label :nas_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :nas_type, Equipment.nas_type.options, {}, id: :equipment_nas_type, class: "form-control"
+
+  .form-group
+    = form.label :protocol, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :protocol, RadiusServer.protocol.options, {}, id: :radius_server_protocol, class: "form-control"
+      %span#helpBlock.help-block
+        %strong UDP (User Datagram Protocol):
+        %br
+        %strong TCP (Transmission Control Protocol):
+
+  .form-group
+    = form.label :ip4, class: "col-sm-2 control-label"
+    .col-sm-4
+      = form.text_field :ip4, id: :equipment_ip4, class: "form-control"
+
+    = form.label :prefix4, class: "col-sm-2 control-label"
+    .col-sm-4
+      = form.number_field :prefix4, in: 1..32, id: :equipment_prefix4, class: "form-control"
+
+  .form-group
+    = form.label :ip6, class: "col-sm-2 control-label"
+    .col-sm-4
+      = form.text_field :ip6, id: :equipment_ip6, class: "form-control"
+
+    = form.label :prefix6, class: "col-sm-2 control-label"
+    .col-sm-4
+      = form.number_field :prefix6, in: 1..128, id: :equipment_prefix6, class: "form-control"
+
+  - if equipment.persisted?
+    .form-group
+      = form.label :secret, class: "col-sm-2 control-label"
+      .col-sm-4
+        = form.password_field :upstream_secret, value: equipment.upstream_secret, data: { toggle: "password" }, id: :equipment_upstream_secret, class: "form-control"
+        %span#helpBlock.help-block
+          = form.label :upstream_secret
+      -# .col-sm-3
+      -#   = form.label :monitor_secret, class: "control-label sr-only"
+      -#   = form.password_field :monitor_secret, value: equipment.monitor_secret, data: { toggle: "password" }, id: :equipment_monitor_secret, class: "form-control"
+      -#   %span#helpBlock.help-block
+      -#     = form.label :monitor_secret
+      -# .col-sm-3
+      -#   = form.label :switchboard_secret, class: "control-label sr-only"
+      -#   = form.password_field :switchboart_secret, value: equipment.switchboard_secret, data: { toggle: "password" }, id: :equipment_switchboard_secret, class: "form-control"
+      -#   %span#helpBlock.help-block
+      -#     = form.label :switchboard_secret
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      .pull-right
+        = link_to t(:cancel), :back
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

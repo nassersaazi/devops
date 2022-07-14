@@ -1,0 +1,49 @@
+= form_with model: user, local: true, class: "form-horizontal" do |form|
+
+  - if user.errors.any?
+    .alert.alert-danger{role:"alert"}
+      #error_explanation
+        %h2
+          = pluralize(user.errors.count, "error")
+          prohibited this user from being saved:
+
+        %ul
+          - user.errors.full_messages.each do |message|
+            %li= message
+
+
+  .form-group
+    = form.label :first_name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :first_name, required: true, id: :user_first_name, class: "form-control"
+
+
+  .form-group
+    = form.label :last_name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :last_name, required: true, id: :user_last_name, class: "form-control"
+
+
+
+  .form-group
+    = form.label :email, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.email_field :email, required: true, id: :user_email, class: "form-control"
+
+  .col-sm-12
+    %h3
+      = Membership.model_name.human(count: 2)
+    .links
+      = link_to_add_association form, :memberships  do
+        = fa_icon "plus-circle", text: t(:new)
+
+    %div#memberships
+      = form.fields_for :memberships do |membership|
+        = render 'membership_fields', f: membership
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      %div.pull-right
+        = link_to t(:cancel), cancel_path
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

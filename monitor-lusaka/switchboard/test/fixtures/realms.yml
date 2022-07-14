@@ -1,0 +1,31 @@
+maren_ac_mw:
+  organisation: maren
+  domain_name: maren.ac.mw
+  test_user: marina
+  test_password: lilo
+  generic: false
+  allow_subdomains: true
+
+ubuntunet_mw:
+  organisation: ua
+  domain_name: ubuntunet.mw
+  test_user: all
+  test_password: iance
+  generic: false
+  allow_subdomains: false
+
+ubuntunet_net:
+  organisation: ua
+  domain_name: ubuntunet.net
+  test_user: all
+  test_password: iance
+  generic: true
+  allow_subdomains: false
+
+ternet_or_tz:
+  organisation: ternet
+  domain_name: ternet.or.tz
+  test_user: ter
+  test_password: net
+  generic: false
+  allow_subdomains: true

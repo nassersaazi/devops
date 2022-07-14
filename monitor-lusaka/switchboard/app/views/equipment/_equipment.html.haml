@@ -1,0 +1,10 @@
+%tbody
+  %tr
+    %td= equipment.name
+    %td
+      %small= equipment.ip4
+    %td
+      %small= equipment.nas_kind_text
+    %td
+      .pull-right.small
+        = link_to t(:edit), edit_organisation_equipment_path(equipment.organisation.id, equipment)

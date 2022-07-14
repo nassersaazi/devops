@@ -1,0 +1,17 @@
+%p Dear eduroam IdP Manager for #{@organisation.name},
+
+%p
+  A manager at your organisation has just #{@action} the Identity Provider (IdP) server
+  %strong= @radius_server.name
+
+- unless @action == 'deleted'
+  %p
+    You can download the configuration files for this IdP:
+    %ul
+      %li= link_to "clients.conf", clients_radius_server_url(id: @radius_server.id)
+      %li= link_to "proxy.conf", proxy_radius_server_url(id: @radius_server.id)
+      %li= link_to "users", users_radius_server_url(id: @radius_server.id)
+
+%p 
+  Have a great day!<br/>
+  eduroam Switchboard

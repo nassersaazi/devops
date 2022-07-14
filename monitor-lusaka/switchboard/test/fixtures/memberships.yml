@@ -1,0 +1,26 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ua_admin:
+  user: admin
+  organisation: ua
+  operator: false
+
+ua_member:
+  user: mercedes
+  organisation: ua
+  operator: false
+
+maren_operator:
+  user: opareto
+  organisation: maren
+  operator: true
+
+maren_noop:
+  user: noop 
+  organisation: maren
+  operator: false
+
+ternet_member:
+  user: simba
+  organisation: ternet
+  operator: false

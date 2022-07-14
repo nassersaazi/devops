@@ -1,0 +1,55 @@
+- title "#{@location.name} | #{@location.organisation.name}"
+- heading "#{@location.name} | #{@location.organisation.name}"
+- subheading link_to t(:edit), edit_organisation_location_path(@organisation, @location), class: 'btn btn-primary'
+
+
+.row
+  - if @location.address.latitude && @location.address.longitude
+    .col-xs-12
+      %iframe{allowfullscreen: "", frameborder: "0", height: "300px", src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@location.address.latitude},#{@location.address.longitude}", style: "border:0", width: "100%"}
+
+  .col-xs-12.col-sm-6
+
+    %h4 eduroam
+    %hr
+
+    %dl.dl-horizontal
+      %dt= Organisation.model_name.human
+      %dd= link_to @organisation.name, organisation_path(@organisation)
+      %dt= Location.human_attribute_name(:stage)
+      %dd= @location.stage_text
+      %dt= Location.human_attribute_name(:transmission)
+      %dd= @location.transmission_text
+      -# TODO: Refactor as venue_type is being used in organisation and location
+      %dt= Location.human_attribute_name(:venue_type)
+      %dd= @location.venue_type_text
+      %dt= Location.human_attribute_name(:ssid)
+      %dd= @location.ssid
+      %dt= Location.human_attribute_name(:enc_level)
+      %dd= @location.enc_level
+      %dt= Location.human_attribute_name(:ap_no)
+      %dd= @location.ap_no
+      %dt= Location.human_attribute_name(:wired_no)
+      %dd= @location.wired_no
+      %dt= Location.human_attribute_name(:port_restrict)
+      %dd= @location.port_restrict
+      %dt= Location.human_attribute_name(:transp_proxy)
+      %dd= @location.transp_proxy
+      %dt= Location.human_attribute_name(:ipv6)
+      %dd= @location.ipv6
+      %dt= Location.human_attribute_name(:nat)
+      %dd= @location.nat
+      %dt= Location.human_attribute_name(:hs20)
+      %dd= @location.hs20
+      %dt= Location.human_attribute_name(:availability)
+      %dd= @location.availability_text
+      %dt= Location.human_attribute_name(:operation_hours)
+      %dd= @location.operation_hours
+      %dt= Location.human_attribute_name(:info_url)
+      %dd= link_to @organisation.info_url
+
+  = render @location.address
+
+  .col-xs-12.col-sm-6.col-md-3
+    %h4= Contact.model_name.human(count: @organisation.contacts.count)
+    = render partial: 'shared/contact', collection: @location.contacts

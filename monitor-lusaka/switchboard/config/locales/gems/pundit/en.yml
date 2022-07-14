@@ -1,0 +1,5 @@
+en:
+  pundit:
+    default: You are not authorized to perform this action.
+    federation_policy:
+      create?: You cannot create federations!

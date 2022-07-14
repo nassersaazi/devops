@@ -1,0 +1,47 @@
+= form_with model: [@organisation, @realm], local: true, class: "form-horizontal" do |form|
+
+  - if realm.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(realm.errors.count, "error")
+        prohibited this realm from being saved:
+
+      %ul
+        - realm.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = form.label :organisation_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.collection_select :organisation_id, Organisation.all, :id, :name, {}, {id: :realm_organisation_id, class: "form-control", disabled: true}
+
+  .form-group
+    = form.label :domain_name, class: "col-sm-2 control-label"
+    .col-sm-10
+      .input-group
+        %span{ class: "input-group-addon" } @
+        = form.text_field :domain_name, required: true, id: :realm_domain_name, class: "form-control"
+
+  .form-group
+    = form.label :allow_subdomains, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.check_box :allow_subdomains, id: :realm_allow_subdomains
+
+  -# .form-group
+  -#   = form.label :test_user, class: "col-sm-2 control-label"
+  -#   .col-sm-10
+  -#     = form.text_field :test_user, id: :realm_test_user, class: "form-control"
+  -#     %span#helpBlock.help-block
+  -#       Name of a user - without the realm - to be used for testing purposes.
+
+  -# .form-group
+  -#   = form.label :test_password, class: "col-sm-2 control-label"
+  -#   .col-sm-10
+  -#     = form.password_field :test_password, value: @realm.test_password, id: :realm_test_password, class: "form-control"
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      .pull-right
+        = link_to t(:cancel), cancel_path
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

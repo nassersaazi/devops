@@ -1,0 +1,19 @@
+\# #{clients_idp.radiusable.name}
+- if clients_idp.ip4?
+  :plain
+    client #{clients_idp.name.downcase.tr(" ", "_")}.ip4 {
+      ipv4addr                      = #{clients_idp.ip4}/32
+      proto                         = #{clients_idp.protocol}
+      secret                        = #{clients_idp.upstream_secret}
+      require_message_authenticator = #{humanize_boolean(clients_idp.require_message_authenticator).downcase}
+      nas_type                      = other
+    }
+- if clients_idp.ip6?
+  :plain
+    client #{clients_idp.name.downcase.tr(" ", "_")}.ip6 {
+      ipv6addr                      = #{clients_idp.ip6}/128
+      proto                         = #{clients_idp.protocol}
+      secret                        = #{clients_idp.upstream_secret}
+      require_message_authenticator = #{humanize_boolean(clients_idp.require_message_authenticator).downcase}
+      nas_type                      = other
+    }

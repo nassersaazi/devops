@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: switchboard
+spec:
+  containers:
+  - image: postgres:9.6-alpine
+    imagePullPolicy: Never
+    name: postgres
+    ports:
+    - containerPort: 5432
+      protocol: TCP

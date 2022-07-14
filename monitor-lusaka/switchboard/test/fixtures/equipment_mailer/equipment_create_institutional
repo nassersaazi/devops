@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+</head>
+<body>
+<p>Dear eduroam IdP Manager for UbuntuNet Alliance,</p>
+<p>
+A manager at your organisation has just created the equipment
+<strong>Corridor</strong>
+</p>
+<p>
+You can download an updated clients.conf files for your RADIUS Identity Provider (IdP) servers:
+<ul>
+<li>
+radius.ubuntunet.net:
+<a href="http://localhost:3000/en/radius_servers/4943fb06-462a-5093-90d3-ea89b4443196/clients">clients.conf</a>
+</li>
+</ul>
+</p>
+<p>
+Alternatively make sure the following snippet is created in the
+<code>clients.conf</code>
+file of your RADIUS IdP:<br/><br/>
+<pre>client corridor.ip4 {
+  ipv4addr                      = 192.168.1.120/32
+  proto                         = UDP
+  secret                        = SnRKbJ84MHV8aIEH
+  require_message_authenticator = yes
+  nas_type                      = other
+}
+
+client corridor.ip6 {
+  ipv6addr                      = 3ffe:505:2::1/128
+  proto                         = UDP
+  secret                        = SnRKbJ84MHV8aIEH
+  require_message_authenticator = yes
+  nas_type                      = other
+}</pre>
+</p>
+<p>
+Have a great day!<br/>
+eduroam Switchboard
+</p>
+
+</body>
+</html>

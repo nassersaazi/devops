@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+</head>
+<body>
+<p>Dear National eduroam Operator of .mw,</p>
+<p>
+A manager at UbuntuNet Alliance has just created the Identity Provider (IdP) server
+<strong>radius.ubuntunet.net</strong>
+</p>
+<p>You can download updated configuration files for your federation Level RADIUS (FLR) servers:</p>
+<ul>
+<li>
+fpa.mw:
+<ul>
+<li><a href="http://localhost:3000/en/radius_servers/127276a4-a93c-5d2b-9176-ab1662842593/clients">clients.conf</a></li>
+<li><a href="http://localhost:3000/en/radius_servers/127276a4-a93c-5d2b-9176-ab1662842593/proxy">proxy.conf</a></li>
+</ul>
+</li>
+</ul>
+<p>
+Have a great day!<br/>
+eduroam Switchboard
+</p>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+fr:
+  activerecord:
+    models:
+      federation: 
+        one: Federation
+        other: Federations
+    attributes:
+      federation:
+        stage: Stage
+        tld: TLD
+        language: Language
+        info_url: Info URL
+        policy_url: Policy URL
+        identifier: eduroam Identifier
+  enumerize:
+    federation:
+      stage:
+        test: Preproduction/Test
+        productive: Active

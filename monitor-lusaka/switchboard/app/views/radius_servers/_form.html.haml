@@ -1,0 +1,97 @@
+= form_with model: [radiusable, radius_server], local: true, class: "form-horizontal" do |form|
+
+  - if radius_server.errors.any?
+    .alert.alert-danger{role:"alert"}
+      #error_explanation
+        %h2
+          = pluralize(radius_server.errors.count, "error")
+          prohibited this RADIUS server from being saved:
+
+        %ul
+          - radius_server.errors.full_messages.each do |message|
+            %li= message
+
+  .form-group
+    = form.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :name, id: :radius_server_name, required: true, class: "form-control"
+
+  .form-group
+    = form.label :server_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :server_type, RadiusServer.server_type.options, {}, id: :radius_server_server_type, class: "form-control"
+      %span#helpBlock.help-block
+        %strong IdP (Identity Provider):
+        RADIUS server for authenticating your own users
+        %br
+        %strong SP (Service Provider):
+        Authorisation and control of RADIUS capable equipment (Access Points, Switches)
+
+  .form-group
+    = form.label :product, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :product, RadiusServer.product.options, {}, id: :radius_server_product, class: "form-control"
+
+  .form-group
+    = form.label :ip4, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :ip4, id: :radius_server_ip4, class: "form-control"
+
+  .form-group
+    = form.label :ip6, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :ip6, id: :radius_server_ip6, class: "form-control"
+
+  .form-group
+    = form.label :protocol, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :protocol, RadiusServer.protocol.options, {}, id: :radius_server_protocol, class: "form-control"
+      %span#helpBlock.help-block
+        %strong UDP (User Datagram Protocol):
+        %br
+        %strong TCP (Transmission Control Protocol):
+
+  - if radius_server.persisted?
+    .form-group
+      = form.label :secret, class: "col-sm-2 control-label"
+      .col-sm-4
+        = form.password_field :upstream_secret, value: radius_server.upstream_secret, data: { toggle: "password" }, id: :radius_server_upstream_secret, class: "form-control"
+        %span#helpBlock.help-block
+          = form.label :upstream_secret
+      .col-sm-3
+        = form.label :monitor_secret, class: "control-label sr-only"
+        = form.password_field :monitor_secret, value: radius_server.monitor_secret, data: { toggle: "password" }, id: :radius_server_monitor_secret, class: "form-control"
+        %span#helpBlock.help-block
+          = form.label :monitor_secret
+      .col-sm-3
+        = form.label :switchboard_secret, class: "control-label sr-only"
+        = form.password_field :switchboard_secret, value: radius_server.switchboard_secret, data: { toggle: "password" }, id: :radius_server_switchboard_secret, class: "form-control"
+        %span#helpBlock.help-block
+          = form.label :switchboard_secret
+
+  .form-group
+    = form.label :auth, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :auth, id: :radius_server_auth, class: "form-control"
+
+    .col-sm-1
+      = form.label :auth_port, class: "control-label"
+    .col-sm-2
+      = form.number_field :auth_port, id: :radius_server_auth_port, class: "form-control"
+
+  .form-group
+    = form.label :acct, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :acct, id: :radius_server_acct, class: "form-control"
+
+    .col-sm-1
+      = form.label :acct_port, class: "control-label"
+    .col-sm-2
+      = form.number_field :acct_port, id: :radius_server_acct_port, class: "form-control"
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      .pull-right
+        = link_to t(:cancel), polymorphic_path(@radiusable)
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

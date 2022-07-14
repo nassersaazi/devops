@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+</head>
+<body>
+<p>Dear National eduroam Operator of .mw,</p>
+<p>
+A manager at UbuntuNet Alliance has just created the realm
+<strong>ubuntunet.mw</strong>
+</p>
+<p>
+You can download an updated proxy.conf files for your Federation Level RADIUS (FLR) servers:
+<ul>
+<li>
+fpa.mw:
+<a href="http://localhost:3000/en/radius_servers/127276a4-a93c-5d2b-9176-ab1662842593/proxy">proxy.conf</a>
+</li>
+</ul>
+</p>
+<p>
+Alternatively make sure the following snippet is created in the
+<code>proxy.conf</code>
+file of your National RADIUS Proxies:<br/>
+<pre>realm ubuntunet.mw {
+  pool = ubuntunet_alliance
+  nostrip
+}</pre>
+</p>
+<p>
+Have a great day!<br/>
+eduroam Switchboard
+</p>
+
+</body>
+</html>

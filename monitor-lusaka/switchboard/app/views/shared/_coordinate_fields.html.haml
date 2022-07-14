@@ -1,0 +1,14 @@
+.form-group
+  = f.label :latitude, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :latitude, id: :address_latitude, class: "form-control"
+
+.form-group
+  = f.label :longitude, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :longitude, id: :address_longitude, class: "form-control"
+
+.form-group
+  = f.label :altitude, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :altitude, id: :address_altitude, class: "form-control"

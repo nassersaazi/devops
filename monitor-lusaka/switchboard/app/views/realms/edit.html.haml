@@ -1,0 +1,11 @@
+- title "#{t(:edit)} #{@realm.domain_name}"
+- heading "#{t(:edit)} #{@realm.domain_name}"
+
+= render 'form', realm: @realm, cancel_path: organisation_path(@organisation)
+
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), [@organisation, @realm],
+  method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

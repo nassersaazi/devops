@@ -1,0 +1,22 @@
+%tbody
+  %tr.success
+    %td= link_to radius_server.name, polymorphic_path([radius_server.radiusable, radius_server])
+    %td
+      %small
+        = radius_server.ip4
+        %br
+        = radius_server.ip6
+    %td
+      %small= radius_server.product_text
+    %td
+      %small
+        = link_to "clients.conf", clients_radius_server_path(radius_server), target: 'blank'
+        %br
+        = link_to "proxy.conf", proxy_radius_server_path(radius_server), target: 'blank'
+        %br
+        = link_to "users", users_radius_server_path(radius_server), target: 'blank'
+    %td
+      .pull-right.small
+        = link_to t(:edit), polymorphic_path([radius_server.radiusable, radius_server], action: :edit)
+        %br
+        Check

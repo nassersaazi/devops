@@ -1,0 +1,34 @@
+.form-group
+  = f.label :street, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :street, required: true, id: :address_street, class: "form-control"
+
+.form-group
+  = f.label :street2, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :street2, id: :address_street2, class: "form-control"
+
+.form-group
+  = f.label :pobox, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :pobox, id: :address_pobox, class: "form-control"
+
+.form-group
+  = f.label :zip, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :zip, id: :address_zip, class: "form-control"
+
+.form-group
+  = f.label :city, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :city, required: true, id: :address_city, class: "form-control"
+
+.form-group
+  = f.label :state, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :state, id: :address_state, class: "form-control"
+
+.form-group
+  = f.label :country_code, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.country_select :country_code, {priority_countries: Address.participating_countries, include_blank: true}, {id: :address_country_code, required: true, class: "form-control"}

@@ -1,0 +1,79 @@
+\####################################################
+\#  clients.conf for #{@radius_server.name}
+\#  Generated on #{Time.now.utc}
+\####################################################
+
+- if @radius_server.radiusable.is_a?(Federation)
+  \### Federation IdPs ###
+  - @radius_server.radiusable.organisations.each do |organisation|
+    = render partial: 'clients_idp', collection: organisation.radius_servers
+
+- elsif @radius_server.radiusable.is_a?(Confederation)
+  \### Downstream ###
+  - @radius_server.radiusable.federations.each do |federation|
+    = render partial: 'clients_idp', collection: federation.radius_servers
+
+- elsif @radius_server.radiusable.is_a?(Organisation)
+  \### Institutional Equipment/NAS - APs, Switches, Controllers ###
+  = render partial: 'clients_equipment', collection: @radius_server.radiusable.equipments
+:plain
+  ### Localhost ###
+  client localhost.ip4 {
+    ipv4addr                      = 127.0.0.1/32
+    proto                         = udp
+    secret                        = testing123
+    require_message_authenticator = yes
+    nas_type                      = other
+  }
+
+  client localhost.ip6 {
+    ipv6addr                      = ::1/128
+    proto                         = udp
+    secret                        = testing123
+    require_message_authenticator = yes
+    nas_type                      = other
+  }
+
+- if @radius_server.ip4?
+  :plain
+    client localhost.public.ip4 {
+      ipv4addr                      = #{@radius_server.ip4}/32
+      proto                         = #{@radius_server.protocol}
+      secret                        = testing123
+      require_message_authenticator = #{humanize_boolean(@radius_server.require_message_authenticator).downcase}
+      nas_type                      = other 
+    }
+- if @radius_server.ip6?
+  :plain
+    client localhost.public.ip6 {
+      ipv6addr                      = #{@radius_server.ip6}/128
+      proto                         = #{@radius_server.protocol}
+      secret                        = testing123
+      require_message_authenticator = #{humanize_boolean(@radius_server.require_message_authenticator).downcase}
+      nas_type                      = other 
+    }
+
+\### Upstream ###
+- @radius_server.upstream_servers.each do |upstream_server|
+  - if upstream_server.ip4?
+    :plain
+      client #{upstream_server.safe_ip4_name} {
+        ipv4addr                      = #{upstream_server.ip4}/32
+        proto                         = #{upstream_server.protocol}
+        secret                        = #{@radius_server.upstream_secret}
+        require_message_authenticator = #{humanize_boolean(upstream_server.require_message_authenticator).downcase}
+        nas_type                      = other
+        shortname                     = other 
+      }
+  - if upstream_server.ip6?
+    :plain
+      client #{upstream_server.safe_ip6_name} {
+        ipv6addr                      = #{upstream_server.ip6}/128
+        proto                         = #{upstream_server.protocol}
+        secret                        = #{@radius_server.upstream_secret}
+        require_message_authenticator = #{humanize_boolean(upstream_server.require_message_authenticator).downcase}
+        nas_type                      = other
+        shortname                     = #{upstream_server.radiusable.tld.downcase}-flr_#{upstream_server.safe_ip4_name}
+      }
+
+= render 'clients_monitors'

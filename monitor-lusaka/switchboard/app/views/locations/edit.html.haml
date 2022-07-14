@@ -1,0 +1,11 @@
+- title "#{t(:edit)} #{@location.name}"
+- heading "#{t(:edit)} #{@location.name}"
+
+= render 'form', location: @location, cancel_path: organisation_path(@organisation)
+
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), [@organisation, @location],
+  method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

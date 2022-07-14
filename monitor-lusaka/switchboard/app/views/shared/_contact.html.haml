@@ -1,0 +1,12 @@
+%hr
+%p
+  %address
+    %strong
+      = contact.name
+      %span.label.label-warning
+        = contact.privacy_text
+    %br
+    = mail_to contact.email
+    %br
+    %abbr{title: "Phone"}= "#{Contact.human_attribute_name(:phone)}:"
+    = contact.phone

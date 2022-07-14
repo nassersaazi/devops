@@ -1,0 +1,64 @@
+- title @federation.name
+- heading @federation.name 
+- subheading link_to t(:edit), edit_federation_path(@federation), class: "btn btn-primary"
+
+.row
+  .col-xs-12.col-sm-6
+    %iframe{allowfullscreen: "", frameborder: "0", height: "480px", src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@federation&.operator&.country_name || 'Africa'}", style: "border:0", width: "100%"}
+  .col-xs-12.col-sm-6  
+    %dl.dl-horizontal
+      %dt= Federation.human_attribute_name(:operator)
+      %dd= link_to @federation.operator.name, organisation_path(@federation.operator)
+      %dt= Federation.human_attribute_name(:confederation)
+      %dd= @federation&.confederation&.name
+      %dt= Federation.human_attribute_name(:stage)
+      %dd= @federation.stage_text
+      %dt= Federation.human_attribute_name(:tld)
+      %dd= @federation.tld
+      %dt= Federation.human_attribute_name(:email)
+      %dd= @federation.email
+      %dt= "#{Federation.model_name.human} URL"
+      %dd
+        %small= link_to ro_json_url.split('?').first, ro_json_url.split('?').first, target: :blank
+      %dt= "#{Organisation.model_name.human(count: 2)} URL"
+      %dd
+        %small= link_to institution_json_url(@federation).split('?').first, institution_json_url(@federation).split('?').first, target: :blank
+
+
+%hr
+
+.row
+  .col-xs-12.col-sm-6
+    %h4 FP (Federation Proxies)
+
+    %table.table.table-hover
+      %thead
+        %tr
+          %th= "#{RadiusServer.human_attribute_name(:name)}"
+          %th= "#{RadiusServer.human_attribute_name(:ip_address)}"
+          %th= "#{RadiusServer.human_attribute_name(:product)}"
+          %th Configs
+          %th
+            .links.pull-right
+              = link_to new_federation_radius_server_path(@federation) do
+                = fa_icon "plus-circle", text: t(:add)
+
+      = render @federation.radius_servers
+      
+  .col-xs-12.col-sm-6
+    %h4
+      = Organisation.model_name.human(count: @organisations.count)
+      - if policy(Organisation).new?
+        %small.pull-right
+          = link_to new_organisation_path do
+            = fa_icon "plus-circle", text: t(:add)
+
+    %table.table.table-hover
+      %thead
+        %tr
+          %th= "#{Organisation.human_attribute_name(:name)}"
+          %th= "#{Organisation.human_attribute_name(:eduroam_type)}"
+          %th= "#{Organisation.human_attribute_name(:stage)}"
+          %th= "#{Organisation.human_attribute_name(:status)}"
+          %th
+      = render @organisations

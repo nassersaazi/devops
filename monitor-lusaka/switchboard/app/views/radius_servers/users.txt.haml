@@ -1,0 +1,5 @@
+- if @radius_server.radiusable.is_a?(Organisation)
+  - @radius_server.radiusable.realms.each do |realm|
+    :plain
+      #{realm.test_user} Cleartext-Password := "#{realm.test_password}", Simultaneous-Use := '1'
+        Reply-Message := "Hello, %{User-Name}"

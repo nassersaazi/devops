@@ -1,0 +1,4 @@
+- title "#{t(:new)} #{User.model_name.human} for #{@organisation.name}"
+- heading "#{t(:new)} #{User.model_name.human} for #{@organisation.name}"
+
+= render 'form', membership: @membership, cancel_path: (@organisation)

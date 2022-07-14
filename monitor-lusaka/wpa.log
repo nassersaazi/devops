@@ -1,0 +1,5 @@
+access-reject; 1.00 sec |rtt=1000ms;;;0;5000 accept=1;0.5:;0:;0;1
+access-reject; 1.00 sec |rtt=1000ms;;;0;5000 accept=1;0.5:;0:;0;1
+access-reject; 2.00 sec |rtt=2000ms;;;0;5000 accept=1;0.5:;0:;0;1
+Friday 09 2022 11:01:04
+Friday 09 2022 11:01:18

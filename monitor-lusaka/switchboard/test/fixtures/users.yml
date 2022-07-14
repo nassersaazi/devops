@@ -1,0 +1,47 @@
+admin:
+  first_name: Tom
+  last_name: Test
+  email: root@ubuntunet.net
+  encrypted_password: <%= User.new.send(:password_digest, '123greetings') %>  
+  admin: true
+  confirmed_at: <%= Time.now %>
+
+mercedes:
+  first_name: Markus
+  last_name: Mellina
+  email: member@ubuntunet.net
+  encrypted_password: <%= User.new.send(:password_digest, '123greetings') %>  
+  admin: false
+  confirmed_at: <%= Time.now %>
+
+opareto:
+  first_name: Reto
+  last_name: Torino
+  email: rm@ph_mustair.ch
+  encrypted_password: <%= User.new.send(:password_digest, '123allegra') %>  
+  admin: false
+  confirmed_at: <%= Time.now %>
+
+noop:
+  first_name: Norbert
+  last_name: Opel
+  email: norbi@opel.uni.edu
+  encrypted_password: <%= User.new.send(:password_digest, '123gruetzi') %>  
+  admin: false
+  confirmed_at: <%= Time.now %>
+
+orglos:
+  first_name: Ori
+  last_name: Lopez
+  email: ori.lopez@
+  encrypted_password: <%= User.new.send(:password_digest, '123moin') %>  
+  admin: false
+  confirmed_at: <%= Time.now %>
+
+simba:
+  first_name: Simba
+  last_name: Lion
+  email: simba@ternet.or.tz
+  encrypted_password: <%= User.new.send(:password_digest, '123moin') %>  
+  admin: false
+  confirmed_at: <%= Time.now %>

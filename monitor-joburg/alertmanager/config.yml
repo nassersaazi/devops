@@ -1,0 +1,30 @@
+global:
+  smtp_smarthost: 	'smtp.sparkpostmail.com:587'
+  smtp_from: 		'alertmanager@ubuntunet.net'
+  smtp_auth_username:	'SMTP_Injection' 
+  smtp_auth_password:	'a4f5372bceed073af1c233144c2d78ff4420af82'
+  smtp_require_tls:	true
+
+route:
+  repeat_interval: 6h
+  receiver: 'slack'
+  
+  routes:
+    - matchers:
+        - severity="critical"
+      receiver: devops-mail
+#  routes:
+ #   receiver: 'devops-mail'
+
+receivers:
+  - name: 'devops-mail'
+    email_configs:
+    - to: 'devops@ubuntunet.net'
+
+  - name: 'slack'
+    slack_configs:
+    - send_resolved: true
+     # username: 'AlertManager'
+      channel: '#devops'
+      api_url: 'https://hooks.slack.com/services/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'
+      icon_url: https://avatars3.githubusercontent.com/u/3380462

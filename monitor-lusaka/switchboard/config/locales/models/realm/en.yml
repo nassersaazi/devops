@@ -1,0 +1,12 @@
+en:
+  activerecord:
+    models:
+      realm: 
+        one: Realm
+        other: Realms
+    attributes:
+      realm:
+        domain_name: Realm
+        allow_subdomains: Allow Subdomains
+        test_user: Test User
+        test_password: Test Password

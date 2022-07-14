@@ -1,0 +1,30 @@
+%p Dear eduroam IdP Manager for #{@organisation.name},
+
+%p
+  A manager at your organisation has just #{@action} the realm
+  %strong= @realm.domain_name
+
+%p
+  You can download an updated proxy.conf files for your RADIUS Identity Provider (IdP) servers:
+  %ul
+    - @organisation.radius_servers.each do |server|
+      %li
+        = "#{server.name}:"
+        = link_to "proxy.conf", proxy_radius_server_url(id: server.id)
+
+%p
+  Alternatively make sure the following snippet is #{@action} in the
+  %code proxy.conf
+  file of your RADIUS IdP:<br/>
+  %pre
+    :plain
+      realm #{@realm.domain_name} {
+      }
+    - if @realm.allow_subdomains
+      :plain
+        realm "~.+\.#{@realm.domain_name.gsub('.', '\\.')}$" {
+      }
+
+%p 
+  Have a great day!<br/>
+  eduroam Switchboard

@@ -1,0 +1,17 @@
+- title Organisation.model_name.human(count: 2) 
+- heading Organisation.model_name.human(count: 2)
+
+- if policy(Organisation).new?
+  - subheading link_to t(:new), new_organisation_path,class: 'btn btn-primary'
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th= Organisation.human_attribute_name(:name)
+      %th= Organisation.human_attribute_name(:country_code)
+
+  %tbody
+    - @organisations.each do |organisation|
+      %tr
+        %td= link_to organisation.name, organisation
+        %td= organisation.country_name

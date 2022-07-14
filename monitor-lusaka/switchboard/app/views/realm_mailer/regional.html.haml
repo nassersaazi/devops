@@ -1,0 +1,36 @@
+%p Dear Regional Operator of the #{@organisation.confederation.name},
+
+%p
+  A manager at 
+  = link_to @organisation.name, organisation_url(id: @organisation.id)
+  in #{@organisation.country_name} has just #{@action} the generic realm
+  %strong= @realm.domain_name
+
+%p
+  You can download an updated proxy.conf files for your Regional Proxy (RP) servers:
+  %ul
+    - @organisation.confederation.radius_servers.each do |server|
+      %li
+        = "#{server.name}:"
+        = link_to "proxy.conf", proxy_radius_server_url(id: server.id)
+      
+%p
+  Alternatively make sure the following snippet is #{@action} in the
+  %code proxy.conf
+  file of your Regional Proxies:<br/>
+  %pre 
+    :plain
+      realm #{@realm.domain_name} {
+        pool = eduroam_#{@organisation.federation.tld.downcase}
+        nostrip
+      }
+    - if @realm.allow_subdomains
+      :plain
+        realm "~.+\.#{@realm.domain_name.gsub('.', '\\.')}$" {
+          pool = eduroam_#{@organisation.federation.tld.downcase}
+          nostrip
+        }
+
+%p 
+  Have a great day!<br/>
+  eduroam Switchboard

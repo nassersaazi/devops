@@ -1,0 +1,46 @@
+en:
+  activerecord:
+    models:
+      radius_server: 
+        one: RADIUS Server
+        other: RADIUS Servers
+    attributes:
+      radius_server:
+        name: Name 
+        server_type: Server Type 
+        product: Product 
+        ip_address: IP Address
+        ip4: IPv4
+        ip6: IPv6
+        mac: MAC Address
+        protocol: Protocol 
+        secret: Shared Secret
+        upstream_secret: Upstream (FP/RP)
+        monitor_secret: Monitor
+        switchboard_secret: Switchboard
+        require_message_authenticator: Require Message Authenticator?
+        auth: Authentication
+        acct: Accounting
+        auth_port: Auth Port 
+        acct_port: Acct Port 
+  enumerize:
+    radius_server:
+      server_type:
+        idp: IdP - Identity Provider
+        sp: SP - Service Provider
+        idp_sp: IdP & SP
+        fp: FP - Federation Proxy
+        rp: RP - Regional Proxy
+        tlr: TLR - Top Level RADIUS
+        monitor: Monitoring
+        switchboard: Switchboard
+      product:
+        fr3: FreeRADIUS v3
+        fr2: FreeRADIUS v2
+        radsecproxy: RadSecProxy 
+        radiator: Radiator 
+        other: Other 
+      protocol:
+        udp: UDP
+        tcp: TCP
+        both: UDP & TCP

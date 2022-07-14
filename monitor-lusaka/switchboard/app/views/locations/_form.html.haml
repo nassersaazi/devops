@@ -1,0 +1,136 @@
+= form_with model: [@organisation, location], local: true, class: "form-horizontal" do |form|
+
+  - if location.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(location.errors.count, "error")
+        prohibited this location from being saved:
+
+      %ul
+        - location.errors.full_messages.each do |message|
+          %li= message
+
+
+  .form-group
+    = form.label :organisation_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.collection_select :organisation_id, Organisation.all, :id, :name, {}, {id: :location_organisation_id, class: "form-control", disabled: true}
+
+  .form-group
+    = form.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :name, required: true, id: :location_name, class: "form-control"
+
+  .form-group
+    = form.label :ssid, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :ssid, required: true, id: :location_ssid, class: "form-control"
+
+  .form-group
+    = form.label :stage, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :stage, Location.stage.options, {}, id: :location_stage, required: true, class: "form-control"
+
+  .form-group
+    = form.label :transmission, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :transmission, Location.transmission.options, {}, id: :location_transmission, required: true, class: "form-control"
+
+  .form-group
+    = form.label :venue_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :venue_type, Location.venue_type.options, {}, id: :location_venue_type, class: "form-control"
+
+  .form-group
+    .col-sm-6
+      %h3= Address.model_name.human
+
+      #address
+        = form.fields_for :address do |address|
+          = render 'shared/address_fields', f: address
+          = render 'shared/coordinate_fields', f: address unless @location.new_record?
+
+
+    .col-sm-6
+      %h3= Contact.model_name.human(count: 2)
+
+      #contacts
+        = form.fields_for :contacts do |contact|
+          = render 'shared/contact_fields', f: contact
+
+      .col-sm-12.links
+        = link_to_add_association form, :contacts, partial: 'shared/contact_fields' do
+          = fa_icon "plus-circle", text: t(:new)
+
+
+  .form-group
+    = form.label :wpa_mode, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :wpa_mode, Location.wpa_mode.options, {}, id: :location_wpa_mode, class: "form-control"
+      %span#helpBlock.help-block
+        %strong WPA2 (Wi-Fi Protected Access version 2)
+        is the preferred option
+      %br
+
+  .form-group
+    = form.label :encryption_mode, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :encryption_mode, Location.encryption_mode.options, {}, id: :location_encryption_mode, class: "form-control"
+      %span#helpBlock.help-block
+        %strong AES (Advanced Encryption Standard)
+        is the preferred option
+        %br
+
+  .form-group
+    = form.label :ap_no, class: "col-sm-2 control-label"
+    .col-sm-4
+      = form.number_field :ap_no, id: :location_ap_no, class: "form-control"
+
+    = form.label :wired_no, class: "col-sm-2 control-label"
+    .col-sm-4
+      = form.number_field :wired_no, id: :location_wired_no, class: "form-control"
+
+  .form-group
+    = form.label :port_restrict, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :port_restrict, id: :location_port_restrict, class: "form-control"
+
+    = form.label :transp_proxy, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :transp_proxy, id: :location_transp_proxy, class: "form-control"
+
+    = form.label :ipv6, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :ipv6, id: :location_ipv6, class: "form-control"
+
+  .form-group
+    = form.label :nat, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :nat, id: :location_nat, class: "form-control"
+
+    = form.label :hs20, class: "col-sm-2 control-label"
+    .col-sm-1
+      = form.check_box :hs20, id: :location_hs20, class: "form-control"
+
+  .form-group
+    = form.label :availability, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :availability, Location.availability.options, {}, id: :location_availability, class: "form-control"
+
+  .form-group
+    = form.label :operation_hours, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :operation_hours, id: :location_operation_hours, class: "form-control"
+
+  .form-group
+    = form.label :info_url, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.url_field :info_url, id: :location_info_url, class: "form-control"
+
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      .pull-right
+        = link_to t(:cancel), cancel_path
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

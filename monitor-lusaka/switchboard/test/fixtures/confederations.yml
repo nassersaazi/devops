@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+africa:
+  operator: ua
+  name: African eduroam Confederation
+  email: eduroam@ubuntunet.net
+  tld: AFRICA

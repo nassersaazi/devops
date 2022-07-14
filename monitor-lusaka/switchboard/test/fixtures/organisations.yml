@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ua:
+  name: UbuntuNet Alliance
+  domain_name: ubuntunet.net
+  country_code: MW
+  identifier: <%= SecureRandom.uuid %>
+  language: en
+  federation: mw
+  eduroam_type: idp_sp
+  stage: 1
+  info_url: https://ubuntunet.net
+  policy_url: https://ubuntunet.net/policy
+
+maren:
+  name: MAREN
+  domain_name: maren.ac.mw
+  country_code: MW
+  identifier: <%= SecureRandom.uuid %>
+  language: en
+  federation: mw
+  eduroam_type: idp_sp
+  stage: 1
+  info_url: https://maren.ac.mw
+  policy_url: https://eduroam.maren.ac.mw/policy.html
+
+ternet:
+  name: TERNET
+  domain_name: ternet.or.tz
+  country_code: TZ
+  identifier: <%= SecureRandom.uuid %>
+  language: sw
+  federation: tz
+  eduroam_type: idp
+  stage: 0
+  info_url: https://eduroam.ternet.ac.tz/info
+  policy_url: https://eduroam.ternet.ac.tz/policy.html
+
+chanco:
+  name: Chancellor College
+  domain_name: cc.ac.mw
+  country_code: MW
+  identifier: <%= SecureRandom.uuid %>
+  language: ny
+  federation: mw
+  eduroam_type: idp_sp
+  stage: 1
+  info_url: http://eduroam.tz/info
+  policy_url: https://eduroam.ubuntunet.net/policy.html  

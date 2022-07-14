@@ -1,0 +1,20 @@
+\# #{clients_equipment.name}
+- if clients_equipment.ip4?
+  :plain
+    client #{clients_equipment.name.downcase.tr(" ", "_")}.ip4 {
+      ipv4addr                      = #{clients_equipment.ip4}/#{clients_equipment.prefix4}
+      proto                         = #{clients_equipment.protocol}
+      secret                        = #{clients_equipment.upstream_secret}
+      require_message_authenticator = yes
+      nas_type                      = #{clients_equipment.nas_type}
+    }
+- if clients_equipment.ip6?
+  :plain
+    client #{clients_equipment.name.downcase.tr(" ", "_")}.ip6 {
+      ipv6addr                      = #{clients_equipment.ip6}/#{clients_equipment.prefix6}
+      proto                         = #{clients_equipment.protocol}
+      secret                        = #{clients_equipment.upstream_secret}
+      require_message_authenticator = yes
+      nas_type                      = #{clients_equipment.nas_type}
+    }
+\

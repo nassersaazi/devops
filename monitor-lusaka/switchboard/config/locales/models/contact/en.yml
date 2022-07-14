@@ -1,0 +1,21 @@
+en:
+  activerecord:
+    models:
+      contact: 
+        one: Contact
+        other: Contacts
+    attributes:
+      contact:
+        name: Name
+        email: Email
+        phone: Phone
+        contact_type: Type
+        privacy: Privacy
+  enumerize:
+    contact:
+      contact_type:
+        person: Person
+        departement: Departement/Service
+      privacy:
+        private: Private
+        public: Public

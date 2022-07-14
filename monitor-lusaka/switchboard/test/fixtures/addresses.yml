@@ -1,0 +1,53 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+ua_lilongwe:
+  addressable: ua (Organisation)
+  street: Off Mzimba Street
+  street2: Onions Office Complex
+  pobox: P.O. Box 2550
+  city: Lilongwe
+  zip: 
+  state: Central Region
+  country_code: MW
+  latitude: 9.99
+  longitude: 9.99
+  altitude: 9.99
+
+ua_kampala:
+  addressable: ua (Organisation)
+  street: House No.31
+  street2: Makerere University - Main Campus
+  pobox: 
+  city: Kampala
+  zip: 
+  state: 
+  country_code: UG
+  latitude: 0.331662
+  longitude: 32.568624
+  altitude:
+
+maren_zomba:
+  addressable: maren (Organisation)
+  street: Chancellor College
+  street2: 
+  pobox: 
+  city: Zomba
+  zip: 
+  state: Southern Region
+  country_code: MW
+  latitude: 0.331662
+  longitude: 32.568624
+  altitude:
+
+secretariat:
+  addressable: office (Location)
+  street: Off Mzimba Street
+  street2: Onions Office Complex
+  pobox: P.O. Box 2550
+  city: Lilongwe
+  zip: 
+  state: Central Region
+  country_code: MW
+  latitude: 9.99
+  longitude: 9.99
+  altitude: 9.99

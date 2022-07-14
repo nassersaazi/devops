@@ -1,0 +1,21 @@
+= form_with model: [location, address], local: true, class: "form-horizontal" do |form|
+
+  - if address.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(address.errors.count, "error")
+        prohibited this address from being saved:
+
+      %ul
+        - address.errors.full_messages.each do |message|
+          %li= message
+
+
+  = render 'shared/address_fields', f: form, cancel_path: location_path(location)
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      .pull-right
+        = link_to t(:cancel), cancel_path
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

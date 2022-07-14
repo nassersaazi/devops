@@ -1,0 +1,11 @@
+- title "#{t(:edit)} #{Membership.model_name.human} of #{@membership.user.full_name}"
+- heading "#{t(:edit)} #{Membership.model_name.human} of #{@membership.user.full_name}"
+
+= render 'form', membership: @membership, cancel_path: organisation_path(@organisation)
+
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), [@organisation, @membership],
+          method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

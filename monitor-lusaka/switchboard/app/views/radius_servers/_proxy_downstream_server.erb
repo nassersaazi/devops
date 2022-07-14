@@ -1,0 +1,15 @@
+home_server <%= proxy.safe_ip_name(ip) %> {
+  ipaddr                = <%= ip %>
+  proto                 = <%= proxy.protocol %>
+  type                  = <%= proxy.auth_acct[:type] %>
+  port                  = <%= proxy.auth_acct[:ports] %>
+  secret                = <%= proxy.upstream_secret %>
+  response_window       = 20
+  response_timeouts     = 2
+  zombie_period         = 60
+  status_check          = status-server
+  check_interval        = 30
+  check_timeout         = 6
+  num_answers_to_alive  = 6
+  max_outstanding       = 65536
+}

@@ -1,0 +1,12 @@
+%tbody
+  %tr
+    %td= link_to organisation.name, organisation_path(organisation)
+    %td
+      %small= organisation.eduroam_type.text
+    %td
+      %span.label.label-info= organisation.stage.text
+    %td
+      %span.label.label-success UP
+    %td
+      .pull-right.small
+        = link_to t(:edit), edit_organisation_path(organisation)

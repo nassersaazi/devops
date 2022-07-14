@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+</head>
+<body>
+<p>Dear eduroam IdP Manager for UbuntuNet Alliance,</p>
+<p>
+A manager at your organisation has just created the Identity Provider (IdP) server
+<strong>radius.ubuntunet.net</strong>
+</p>
+<p>
+You can download the configuration files for this IdP:
+<ul>
+<li><a href="http://localhost:3000/en/radius_servers/4943fb06-462a-5093-90d3-ea89b4443196/clients">clients.conf</a></li>
+<li><a href="http://localhost:3000/en/radius_servers/4943fb06-462a-5093-90d3-ea89b4443196/proxy">proxy.conf</a></li>
+<li><a href="http://localhost:3000/en/radius_servers/4943fb06-462a-5093-90d3-ea89b4443196/users">users</a></li>
+</ul>
+</p>
+<p>
+Have a great day!<br/>
+eduroam Switchboard
+</p>
+
+</body>
+</html>

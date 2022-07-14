@@ -1,0 +1,10 @@
+- title "#{t(:edit)} #{@radius_server.name}"
+- heading "#{t(:edit)} #{@radius_server.name}"
+
+= render 'form', radiusable: @radiusable, radius_server: @radius_server
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), [@radiusable, @radius_server],
+  method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

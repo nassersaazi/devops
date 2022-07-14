@@ -1,0 +1,41 @@
+\### eduroam Switchboard ###
+- RadiusServer.type(:switchboard).each do |switchboard|
+  - if switchboard.ip4?
+    :plain
+      client #{switchboard.safe_ip4_name} {
+        ipv4addr                      = #{switchboard.ip4}/32
+        proto                         = #{switchboard.protocol}
+        secret                        = #{@radius_server.switchboard_secret}
+        require_message_authenticator = #{humanize_boolean(switchboard.require_message_authenticator).downcase}
+        nas_type                      = other
+      }
+  - if switchboard.ip6?
+    :plain
+      client #{switchboard.safe_ip6_name} {
+      ipv6addr                      = #{switchboard.ip6}/128
+      proto                         = #{switchboard.protocol}
+      secret                        = #{@radius_server.switchboard_secret}
+      require_message_authenticator = #{humanize_boolean(switchboard.require_message_authenticator).downcase}
+      nas_type                      = other
+    }
+
+\### eduroam Monitoring ###
+- RadiusServer.type(:monitor).each do |monitor|
+  - if monitor.ip4?
+    :plain
+      client #{monitor.safe_ip4_name} {
+        ipv4addr                      = #{monitor.ip4}/32
+        proto                         = #{monitor.protocol}
+        secret                        = #{@radius_server.monitor_secret}
+        require_message_authenticator = #{humanize_boolean(monitor.require_message_authenticator).downcase}
+        nas_type                      = other
+      }
+  - if monitor.ip6?
+    :plain
+      client #{monitor.safe_ip6_name} {
+        ipv6addr                      = #{monitor.ip6}/128
+        proto                         = #{monitor.protocol}
+        secret                        = #{@radius_server.switchboard_secret}
+        require_message_authenticator = #{humanize_boolean(monitor.require_message_authenticator).downcase}
+        nas_type                      = other
+      }

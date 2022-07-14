@@ -1,0 +1,99 @@
+= form_with model: organisation, local: true, class: "form-horizontal" do |form|
+
+  - if organisation.errors.any?
+    .alert.alert-danger{role:"alert"}
+      #error_explanation
+        %h2
+          = pluralize(organisation.errors.count, "error")
+          prohibited this organisation from being saved:
+
+        %ul
+          - organisation.errors.full_messages.each do |message|
+            %li= message
+
+  .form-group
+    = form.label :name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :name, id: :organisation_name, required: true, class: "form-control"
+
+  .form-group
+    = form.label :domain_name, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :domain_name, id: :organisation_domain_name, required: true, class: "form-control"
+
+  .form-group
+    = form.label :venue_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :venue_type, Organisation.venue_type.options, {}, id: :organisation_venue_type, class: "form-control"
+
+  .form-group
+    = form.label :country_code, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.country_select :country_code, {priority_countries: Organisation.participating_countries, include_blank: true}, id: :organisation_country_code, required: true, class: "form-control"
+
+  .form-group
+    = form.label :language, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :language, Federation.languages_list, {}, id: :organisation_language, required: true, class: "form-control"
+
+  .form-group
+    = form.label :federation_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :federation_id, policy_scope(Federation.all).collect { |f| [ f.name, f.id ] }, {}, id: :organisation_federation_id, required: true, class: "form-control" 
+
+  .form-group
+    = form.label :eduroam_type, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :eduroam_type, Organisation.eduroam_type.options, {}, id: :organisation_eduroam_type, class: "form-control"
+      %span#helpBlock.help-block
+        %strong 
+          IdP (Identity Provider)
+        operates a RADIUS server for authenticating your own users
+        %br
+        %strong 
+          SP (Service Provider)
+        operates RADIUS capable equipment (Access Points, Switches)
+
+  .form-group
+    = form.label :stage, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :stage, Organisation.stage.options, {}, id: :organisation_stage, required: true, class: "form-control"
+
+  .form-group
+    = form.label :info_url, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.url_field :info_url, id: :organisation_info_url, required: true, class: "form-control"
+
+  .form-group
+    = form.label :policy_url, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.url_field :policy_url, id: :organisation_policy_url, required: true, class: "form-control"
+
+
+  .col-sm-6
+    %h3= Address.model_name.human
+
+    #address
+      = form.fields_for :address do |address|
+        = render 'shared/address_fields', f: address
+        = render 'shared/coordinate_fields', f: address unless @organisation.new_record?
+
+
+  .col-sm-6
+    %h3= Contact.model_name.human(count: 2)
+
+    #contacts
+      = form.fields_for :contacts do |contact|
+        = render 'shared/contact_fields', f: contact
+
+    .col-sm-12.links
+      = link_to_add_association form, :contacts, partial: 'shared/contact_fields' do
+        = fa_icon "plus-circle", text: t(:new)
+
+
+  .form-group.actions
+    .col-sm-offset-10.col-sm-2
+      .pull-right
+        = link_to t(:cancel), cancel_path
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

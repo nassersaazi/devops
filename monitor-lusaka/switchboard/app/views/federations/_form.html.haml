@@ -1,0 +1,63 @@
+= form_with model: federation, local: true, class: "form-horizontal" do |form|
+
+  - if federation.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(federation.errors.count, "error")
+        prohibited this federation from being saved:
+
+      %ul
+        - federation.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = form.label :confederation_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :confederation_id, Confederation.all.collect { |cf| [ cf.name, cf.id ] }, {}, id: :organisation_confederation_id, required: true, class: "form-control" 
+
+  .form-group
+    = form.label :tld, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.country_select :tld, {format: :with_alpha2, priority_countries: Federation.participating_countries, include_blank: true }, {id: :federation_tld, class: "form-control"}
+
+  .form-group
+    = form.label :email, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.email_field :email, id: :federation_email, class: "form-control"
+
+  .form-group
+    = form.label :operator_id, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.collection_select :operator_id, Organisation.all, :id, :name, {include_blank: true}, {id: :federation_operator_id, class: "form-control"}
+
+  .form-group
+    = form.label :language, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :language, Federation.languages_list, {}, {id: :federation_language, class: "form-control"}
+
+  .form-group
+    = form.label :stage, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.select :stage, Federation.stage.options, {}, {id: :federation_stage, class: "form-control"}
+
+  .form-group
+    = form.label :identifier, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.text_field :identifier, id: :federation_identifier, class: "form-control"
+
+  .form-group
+    = form.label :info_url, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.url_field :info_url, value: "https://eduroam.ubuntunet.net", id: :federation_info_url, required: true, class: "form-control"
+
+  .form-group
+    = form.label :policy_url, class: "col-sm-2 control-label"
+    .col-sm-10
+      = form.url_field :policy_url, id: :federation_policy_url, value: "https://eduroam.ubuntunet.net/policy", required: true, class: "form-control"
+
+  .form-group.actions
+    .col-sm-offset-2.col-sm-10
+      .pull-right
+        = link_to t(:cancel), cancel_path
+        = t(:or)
+        = form.button t(:submit), class: "btn btn-primary"

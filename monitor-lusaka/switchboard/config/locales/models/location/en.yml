@@ -1,0 +1,42 @@
+en:
+  activerecord:
+    models:
+      location: 
+        one: Location
+        other: Locations
+    attributes:
+      location:
+        stage: Stage
+        transmission: Transmission
+        venue_type: Location Type
+        ssid: SSID
+        name: Name
+        wpa_mode: WPA Mode
+        encryption_mode: Encryption Mode
+        ap_no: Number of Access Points
+        wired_no: Number of sockets for wired access
+        port_restrict: Port Restriction
+        transp_proxy: Transportation Proxy
+        ipv6: IPv6
+        nat: NAT
+        hs20: Hot Spot 2.0
+        availability: Availability
+        operation_hours: Operation Hours
+        info_url: Info URL
+  enumerize:
+    location:
+      transmission:
+        single: Single Spot
+        area: Area
+        mobile: Mobile
+      wpa_mode:
+        wpa: WPA
+        wpa2: WPA2
+        both: Both
+      encryption_mode:
+        tkip: TKIP
+        aes: AES
+        both: Both
+      availability:
+        always: No Restrictions
+        restricted: Physical Access Restrictions

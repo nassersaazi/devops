@@ -1,0 +1,40 @@
+en:
+  activerecord:
+    models:
+      equipment: 
+        one: Equipment
+        other: Equipment
+    attributes:
+      equipment:
+        name: Name
+        ip_address: IP Address
+        ip4: IPv4
+        prefix4: Prefix IPv4
+        ip6: IPv6
+        prefix6: Prefix IPv6
+        mac: MAC Address
+        protocol: Protocol 
+        secret: Shared Secrets
+        require_message_authenticator: Require Message Authenticator?        
+        nas_type: NAS Type
+        nas_kind: Equipment Kind
+  enumerize:
+    equipment:
+      nas_type:
+        cisco: Cisco
+        computone: Computone
+        livingston: Livingston
+        max40xx: MAX40xx
+        multitech: MultiTech
+        netserver: NetServer
+        pathras: Pathras
+        patton: Patton
+        portslave: PortSlave
+        tc: TC
+        usrhiper: USR Hiper
+        other: Other
+    nas_kind:
+        ap: Access Point
+        switch: Switch
+        other: Other
+

@@ -1,0 +1,21 @@
+mw:
+  identifier: MW01
+  operator: maren
+  confederation: africa
+  email: eduroam@maren.ac.mw
+  stage: 1
+  tld: MW
+  language: en
+  info_url: https://eduroam.maren.ac.mw/info
+  policy_url: https://eduroam.maren.ac.mw/policy.html
+
+tz:
+  identifier: TZ01
+  operator: ternet
+  confederation: africa
+  email: eduroam@ternet.or.tz
+  stage: 0
+  tld: TZ
+  language: sw
+  info_url: http://eduroam.tz/info
+  policy_url: https://eduroam.ubuntunet.net/policy.html

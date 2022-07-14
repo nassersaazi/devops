@@ -1,0 +1,29 @@
+.form-group
+  = f.label :name, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.text_field :name, id: :contact_name, class: "form-control"
+
+.form-group
+  = f.label :email, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.email_field :email, id: :contact_email, class: "form-control"
+
+.form-group
+  = f.label :phone, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.telephone_field :phone, id: :contact_phone, class: "form-control"
+
+.form-group
+  = f.label :contact_type, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.select :contact_type, Contact.contact_type.options, {}, id: :contact_contact_type, class: "form-control"
+
+.form-group
+  = f.label :privacy, class: "col-sm-2 control-label"
+  .col-sm-10
+    = f.select :privacy, Contact.privacy.options, {}, id: :contact_privacy, class: "form-control"
+
+.form-group
+  .col-sm-offset-2.col-sm-10
+    = f.check_box :_destroy
+    = f.label :_destroy, t(:delete)

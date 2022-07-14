@@ -1,0 +1,29 @@
+- title @user.full_name
+- heading @user.full_name
+- subheading link_to t(:edit), edit_user_path(@user),class: 'btn btn-primary'
+
+.row
+  .col-xs-12.col-sm-6
+    %dl.dl-horizontal
+      %dt= User.human_attribute_name(:full_name)
+      %dd= @user.full_name
+      %dt= User.human_attribute_name(:email)
+      %dd= @user.email
+
+  .col-xs-12.col-sm-6
+    %table.table.table-hover
+      %thead
+        %tr
+          %td
+            = Membership.model_name.human(count: @user.memberships.count)
+          %td.small= Membership.human_attribute_name(:operator)
+      %tbody
+        - @user.memberships.each do |membership|
+          %tr
+            %td.small= link_to membership.organisation.name, organisation_path(membership.organisation)
+            %td
+              - if membership.organisation.is_an_operator?
+                %small= fa_icon membership.operator ? "check" : "close"
+            -# %td
+            -#   .pull-right.small
+            -#     = link_to t(:delete), edit_organisation_realm_path(@organisation, realm)

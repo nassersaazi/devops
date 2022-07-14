@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+corridor:
+  name: Corridor
+  location: office
+  ip4: <%= IPAddr.new('192.168.1.120/32') %>
+  prefix4: 32
+  ip6: <%= IPAddr.new('3ffe:505:2::1') %>
+  prefix6: 128
+  mac: 36:7b:71:5a:93:90
+  protocol: UDP
+  upstream_secret: SnRKbJ84MHV8aIEH
+  switchboard_secret: SnRKbJ84MHV8aIEH
+  monitor_secret: SnRKbJ84MHV8aIEH
+  require_message_authenticator: true
+  nas_type: other
+  nas_kind: ap
+
+unifi:
+  name: Unifi Switch
+  location: kitchen
+  ip4: <%= IPAddr.new('192.168.1.121/32') %>
+  prefix4: 32
+  ip6: 
+  prefix6: 
+  mac: b7:4f:a5:75:2d:24
+  protocol: UDP
+  upstream_secret: cJiek48bTjOVOyiw
+  switchboard_secret: cJiek48bTjOVOyiw
+  monitor_secret: cJiek48bTjOVOyiw
+  require_message_authenticator: true
+  nas_type: other
+  nas_kind: switch

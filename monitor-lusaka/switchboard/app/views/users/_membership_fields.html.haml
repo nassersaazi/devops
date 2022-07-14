@@ -1,0 +1,17 @@
+.form-group
+  = f.label :organisation_id, class: "col-sm-2 control-label"
+  #div.col-sm-10
+    = f.select :organisation_id, Organisation.all.collect { |o| [ o.name, o.id ] }, {include_blank: true}, { id: :user_organisation_id, class: "form-control" }
+
+- if action_name == "edit" && f.object.try(:organisation).try(:is_an_operator?)
+  .form-group
+    = f.label :operator, class: "col-sm-2 control-label"
+    %div.col-sm-10
+      = f.check_box :operator, id: :user_operator
+
+.form-group
+  .col-sm-offset-2.col-sm-10
+    = f.check_box :_destroy
+    = f.label :_destroy, t(:delete)
+
+%hr

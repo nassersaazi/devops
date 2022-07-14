@@ -1,0 +1,12 @@
+-  title t(:edit) + " " + @user.full_name
+-  heading t(:edit) + " " + @user.full_name
+
+
+= render 'form', user: @user, cancel_path: user_path(@user)
+
+%hr
+
+%h4 Destructive Actions
+
+= button_to t(:delete), @user,
+          method: "delete", data: { confirm: t(:sure?)}, class: 'btn btn-xs btn-danger'

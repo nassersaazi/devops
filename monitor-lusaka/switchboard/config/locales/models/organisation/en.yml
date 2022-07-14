@@ -1,0 +1,91 @@
+en:
+  activerecord:
+    models:
+      organisation: 
+        one: Organisation
+        other: Organisations
+    attributes:
+      organisation:
+        name: Name
+        domain_name: Domain Name
+        country_code: Country
+        language: Language
+        eduroam_type: Provider
+        identifier: Identifier
+        venue_type: Type
+  enumerize:
+    organisation:
+      eduroam_type:
+        idp: IdP
+        sp: SP 
+        idp_sp: IdP+SP
+      stage:
+        test: Preproduction/Test
+        productive: Active
+      venue_type:
+        unspecified_unspecified: "Unspecified"
+        assembly_unspecified: "Assembly - Unspecified"
+        assembly_arena: "Assembly - Arena"
+        assembly_stadium: "Assembly - Stadium"
+        assembly_terminal: "Assembly - Passenger Terminal (Airport, Bus, Ferry, Train)"
+        assembly_amphitheater: "Assembly - Amphitheater"
+        assembly_amusement: "Assembly - Amusement Park"
+        assembly_worship: "Assembly - Place of Worship"
+        assembly_convention: "Assembly - Convention Center"
+        assembly_library: "Assembly - Library"
+        assembly_museum: "Assembly - Museum"
+        assembly_restaurant: "Assembly - Restaurant"
+        assembly_theater: "Assembly - Theater"
+        assembly_bar: "Assembly - Bar"
+        assembly_coffee: "Assembly - Coffee Shop"
+        assembly_zoo: "Assembly - Zoo or Aquarium"
+        assembly_emergency: "Assembly - Emergency Coordination Center"
+        business_unspecified: "Business - Unspecified"
+        business_doctor: "Business - Doctor or Dentist"
+        business_bank: "Business - Bank"
+        business_fire: "Business - Fire Station"
+        business_police: "Business - Police Station"
+        business_post: "Business - Post Office"
+        business_professional: "Business - Professional Office"
+        business_research: "Business - Research and Development Facility"
+        business_attorney: "Business - Attorney Office"
+        educational_unspecified: "Educational - Unspecified"
+        educational_primary: "Educational - School, Primary"
+        educational_secondary: "Educational - School, Secondary"
+        educational_university: "Educational - University or College"
+        factory_unspecified: "Factory and Industrial - Unspecified"
+        factory_factory: "Factory and Industrial - Factory"
+        institutional_unspecified: "Insitutional - Unspecified"
+        institutional_hospital: "Insitutional - Hospital"
+        institutional_care: "Insitutional - Long-Term Care Facility (Nursing Home, Hospice)"
+        institutional_rehab: "Insitutional - Alcohol and Drug Rehabilitation Center"
+        institutional_group: "Insitutional - Group Home"
+        institutional_prison: "Insitutional - Prison or Jail"
+        mercantile_unspecified: "Mercantile - Unspecified"
+        mercantile_retail: "Mercantile - Retail Store"
+        mercantile_grocery: "Mercantile - Grocery Market"
+        mercantile_garage: "Mercantile - Automotive Service Station"
+        mercantile_mall: "Mercantile - Shopping Mall"
+        mercantile_petrol: "Mercantile - Gas Station"
+        residential_unspecified: "Residential - Unspecified"
+        residential_private: "Residential - Private Residence"
+        residential_hotel: "Residential - Hotel or Motel"
+        residential_dormitory: "Residential - Dormitory"
+        residential_boarding: "Residential - Boarding House"
+        storage_unspecified: "Storage - Unspecified"
+        utility_unspecified: "Utility and Miscellaneouse - Unspecified"
+        vehicular_unspecified: "Vehicular - Unspecified"
+        vehicular_automobile: "Vehicular - Automobile or Truck"
+        vehicular_airplane: "Vehicular - Airplane"
+        vehicular_bus: "Vehicular - Bus"
+        vehicular_ferry: "Vehicular - Ferry"
+        vehicular_ship: "Vehicular - Ship or Boat"
+        vehicular_train: "Vehicular - Train"
+        vehicular_bike: "Vehicular - Motor Bike"
+        outdoor_unspecified: "Outdoor - Unspecified"
+        outdoor_muni_mesh: "Outdoor - Muni-Mesh Network"
+        outdoor_park: "Outdoor - City Park"
+        outdoor_rest_area: "Outdoor - Rest Area"
+        outdoor_traffic_control: "Outdoor - Traffic Control"
+        outdoor_bus_stop: "Outdoor - Bus Stop"
+        outdoor_kiosk: "Outdoor - Kiosk"

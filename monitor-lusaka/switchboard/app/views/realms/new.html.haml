@@ -1,0 +1,4 @@
+- title "#{t(:new)} #{Realm.model_name.human} for #{@organisation.name}"
+- heading "#{t(:new)} #{Realm.model_name.human} for #{@organisation.name}"
+
+= render 'form', realm: @realm, cancel_path: organisation_path(@organisation)

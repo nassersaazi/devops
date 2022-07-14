@@ -1,0 +1,9 @@
+en:
+  activerecord:
+    models:
+      membership:
+        one: Membership
+        other: Memberships
+    attributes:
+      membership:
+        operator: Operator?

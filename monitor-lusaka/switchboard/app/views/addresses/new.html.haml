@@ -1,0 +1,4 @@
+- title "#{t(:new)} #{Address.model_name.human}"
+- heading "#{t(:new)} #{Address.model_name.human}"
+
+= render 'form', location: @location, address: @address, cancel_path: organisation_path(@location.organisation)

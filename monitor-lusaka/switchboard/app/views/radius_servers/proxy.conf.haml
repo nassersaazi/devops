@@ -1,0 +1,194 @@
+\################################################
+\#  proxy.conf for #{@radius_server.name}
+\#  Generated on #{Time.now.utc}
+\################################################
+\
+:plain
+  proxy server {
+    default_fallback = no
+  }
+
+  # Blackhole Routing - EAP-SIM/MNOs
+  realm "~\.3gppnetwork\.org$" {
+    nostrip
+    notrealm
+  }
+\
+- if @radius_server.radiusable.is_a?(Organisation)
+  \# Your local realms - leaving them blank stops them from ever being forwarded
+  realm LOCAL {
+  }
+  realm NULL {
+  }
+  \  
+  \# Actual realms, including subdomains if applicable
+  = render partial: 'proxy_local_realm', collection: @radius_server.radiusable.realms
+- elsif @radius_server.radiusable.is_a?(Federation)
+  - @radius_server.radiusable.organisations.each do |organisation|
+    - unless organisation.radius_servers.empty?
+      \### #{organisation.name} ###
+      \# Servers
+      - organisation.radius_servers.each do |idp|
+        - [idp.ip4, idp.ip6].compact.each do |ip|
+          = render partial: 'proxy_downstream_server', locals: {proxy: idp, ip: ip}
+      \# Pool
+      home_server_pool #{organisation.safe_name} {
+      \  type        = client-balance
+      - organisation.radius_servers.each do |idp|
+        - [idp.ip4, idp.ip6].compact.each do |ip|
+          \  home_server = #{idp.safe_ip_name(ip)}
+      :plain
+        }
+      
+        # Realms
+      - organisation.realms.each do |idp_realm|
+        :plain
+          realm #{idp_realm.domain_name} {
+            auth_pool     = #{organisation.safe_name}
+            nostrip
+          }
+        - if idp_realm.allow_subdomains
+          :plain
+            realm "~.+\.#{idp_realm.domain_name.gsub('.', '\\.')}$" {
+              auth_pool     = #{organisation.safe_name}
+              nostrip
+            }
+      \  
+- elsif @radius_server.radiusable.is_a?(Confederation)
+  - @radius_server.radiusable.federations.each do |federation|
+    - unless federation.radius_servers.empty?
+      \### .#{federation.tld}
+      \# Servers
+      - federation.radius_servers.each do |fp|
+        - [fp.ip4, fp.ip6].compact.each do |ip|
+          = render partial: 'proxy_downstream_server', locals: {proxy: fp, ip: ip}
+      \# Pools
+      home_server_pool eduroam_#{federation.tld.downcase} {
+      \  type        = client-balance
+      - federation.radius_servers.each do |fp|
+        - [fp.ip4, fp.ip6].compact.each do |ip|
+          \  home_server = #{fp.safe_ip_name(ip)}
+      :plain
+        }
+
+        # Realms
+        realm "~(.+\.)#{federation.tld.downcase}$" {      
+          auth_pool       = eduroam_#{federation.tld.downcase}
+          nostrip
+        }
+
+      - federation.organisations.each do |organisation|
+        - organisation.realms.generic.each do |generic_realm|
+          :plain
+            realm #{generic_realm.domain_name} {
+              auth_pool       = eduroam_#{federation.tld.downcase}
+              nostrip
+            }
+          - if generic_realm.allow_subdomains
+            :plain
+              realm "~.+\.#{generic_realm.domain_name.gsub('.', '\\.')}$" {
+                auth_pool       = eduroam_#{federation.tld.downcase}
+                nostrip
+              }
+
+\############################################################
+\##                Switchboard/Monitor                     ##
+\############################################################
+\### Switchboard ###
+- RadiusServer.type(:switchboard).each do |switchboard|
+  - [switchboard.ip4, switchboard.ip6].compact.each do |ip|
+    :plain
+      home_server #{switchboard.safe_ip_name(ip)} {
+        ipaddr                = #{ip}
+        proto                 = #{switchboard.protocol}
+        type                  = #{switchboard.auth_acct[:type]}
+        port                  = #{switchboard.auth_acct[:ports]}
+        secret                = #{@radius_server.switchboard_secret}
+        response_window       = 20
+        response_timeouts     = 2
+      }
+:plain
+  home_server_pool switchboard {
+    type        = client-balance
+- RadiusServer.type(:switchboard).each do |switchboard|
+  - [switchboard.ip4, switchboard.ip6].compact.each do |ip|
+    :plain
+        home_server = #{switchboard.safe_ip_name(ip)}
+      }
+:plain
+  realm #{"#{@radius_server.id}.#{@radius_server.radiusable.tld.downcase}"} {
+    auth_pool = switchboard
+    nostrip
+  }
+
+- if @radius_server.radiusable.is_a?(Federation)
+  \### Monitor ###
+  - RadiusServer.type(:monitor).each do |monitor|
+    - [monitor.ip4, monitor.ip6].compact.each do |ip|
+      :plain
+        home_server #{monitor.safe_ip_name(ip)} {
+          ipaddr                = #{ip}
+          proto                 = #{monitor.protocol}
+          type                  = #{monitor.auth_acct[:type]}
+          port                  = #{monitor.auth_acct[:ports]}
+          secret                = #{@radius_server.monitor_secret}
+          response_window       = 20
+          response_timeouts     = 2
+        }
+  :plain
+    home_server_pool monitoring {
+      type        = client-balance
+  - RadiusServer.type(:monitor).each do |monitor|
+    - [monitor.ip4, monitor.ip6].compact.each do |ip|
+      :plain
+          home_server = #{monitor.safe_ip_name(ip)}
+        }
+  :plain    
+    realm eduroam.#{@radius_server.radiusable.tld.downcase} {
+      auth_pool = monitoring
+      nostrip
+    }
+
+\############################################################
+\##                        Upstream                        ##
+\############################################################
+
+\# Servers
+- @radius_server.upstream_servers.each do |upstream_server|
+  - [upstream_server.ip4, upstream_server.ip6].compact.each do |ip|
+    :plain
+      home_server #{upstream_server.safe_ip_name(ip)} {
+        ipaddr                = #{ip}
+        proto                 = #{upstream_server.protocol}
+        type                  = #{upstream_server.auth_acct[:type]}
+        port                  = #{upstream_server.auth_acct[:ports]}
+        secret                = #{@radius_server.upstream_secret}
+        response_window       = 20
+        response_timeouts     = 2
+        zombie_period         = 60
+        status_check          = status-server
+        check_interval        = 30
+        check_timeout         = 6
+        num_answers_to_alive  = 6
+        max_outstanding       = 65536
+      }
+:plain
+  # Pools
+  home_server_pool upstream {
+    type        = client-balance
+- @radius_server.upstream_servers.each do |upstream_server|
+  - [upstream_server.ip4, upstream_server.ip6].compact.each do |ip|
+    \  home_server = #{upstream_server.safe_ip_name(ip)}
+}
+\
+:plain
+  # Default destination for unknown realms - forward to the upstream servers
+  # Regex version is required for f_ticks to log properly
+  realm "~.+$" {
+    pool = upstream
+    nostrip
+  }
+  realm DEFAULT {
+    pool = upstream
+    nostrip
+  }

@@ -1,0 +1,90 @@
+version: "3.4"
+
+services:
+
+  fluentd:
+    image: chrohrer/fluentd:develop
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - "node.role == manager"
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 1GB
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - type: volume
+        source: logdata6
+        target: /fluentd/log
+    configs:
+      - source: fluent.conf
+        target: /fluentd/etc/fluent.conf
+    ports:
+      - "129.232.230.131:24224:24224"
+      - "129.232.230.131:24224:24224/udp"
+    networks:
+      - lognet6
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - "node.role == manager"
+      resources:
+        limits:
+          cpus: "1.2"
+          memory: 8GB
+      restart_policy:
+        condition: on-failure
+    volumes:
+      - type: volume
+        source: esdata6
+        target: /usr/share/elasticsearch/data
+    #ports:
+    #  - "9200:9200"
+    networks:
+      - lognet6
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:6.1.1
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - "node.role == manager"
+      resources:
+        limits:
+          cpus: "0.8"
+          memory: 2GB
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "129.232.230.131:5601:5601"
+    networks:
+      - lognet6
+    #- nginx-proxy
+    # DONT ENABLE THIS, STOPS THE WHOLE NGINX-PROXY FROM STARTING UP PROPERLY
+    #environment:
+    #  - VIRTUAL_HOST=logs.ubuntunet.net
+    #  - VIRTUAL_PORT=5601
+    #  - LETSENCRYPT_EMAIL=devops@ubuntunet.net
+    #  - LETSENCRYPT_HOST=logs.ubuntunet.net
+
+configs:
+  fluent.conf:
+    file: ./conf/fluent.conf
+
+volumes:
+  logdata6:
+  esdata6:
+
+networks:
+  lognet6:
+  #  external: true
+  #nginx-proxy:
+  #  external: true

@@ -1,0 +1,87 @@
+kitchen:
+  organisation: ua
+  identifier: <%= SecureRandom.uuid %>
+  stage: 1
+  transmission: 0
+  venue_type: MyString
+  ssid: eduroam
+  name: Office Kitchen
+  encryption_mode: both
+  wpa_mode: aes
+  ap_no: 1
+  wired_no: 1
+  port_restrict: false
+  transp_proxy: false
+  ipv6: false
+  nat: false
+  hs20: false
+  availability: 0
+  operation_hours:
+  info_url: https://ubuntunet.net
+  address_id: secretariat (Location)
+  
+office:
+  organisation: maren
+  identifier: <%= SecureRandom.uuid %>
+  stage: 1
+  transmission: 0
+  venue_type: MyString
+  ssid: eduroam
+  name: MAREN Main Office
+  encryption_mode: both
+  wpa_mode: aes
+  ap_no: 1
+  wired_no: 1
+  port_restrict: false
+  transp_proxy: false
+  ipv6: false
+  nat: false
+  hs20: false
+  availability: 0
+  operation_hours:
+  info_url: https://maren.ac.mw
+  address_id: secretariat (Location)
+  
+noequip:
+  organisation: ua
+  identifier: <%= SecureRandom.uuid %>
+  stage: 1
+  transmission: 0
+  venue_type: MyString
+  ssid: eduroam
+  name: Farraday Cage
+  encryption_mode: both
+  wpa_mode: aes
+  ap_no: 1
+  wired_no: 1
+  port_restrict: false
+  transp_proxy: false
+  ipv6: false
+  nat: false
+  hs20: false
+  availability: 0
+  operation_hours:
+  info_url: https://ubuntunet.net
+
+costech:
+  organisation: ternet
+  identifier: <%= SecureRandom.uuid %>
+  stage: 1
+  transmission: 0
+  venue_type: MyString
+  ssid: eduroam
+  name: TERNET Office
+  encryption_mode: both
+  wpa_mode: aes
+  ap_no: 1
+  wired_no: 1
+  port_restrict: false
+  transp_proxy: false
+  ipv6: false
+  nat: false
+  hs20: false
+  availability: 0
+  operation_hours:
+  info_url: https://ternet.or.tz
+  address_id: secretariat (Location)
+  

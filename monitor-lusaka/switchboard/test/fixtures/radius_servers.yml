@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+mw_fpa:
+  name: fpa.mw
+  radiusable: mw (Federation) 
+  server_type: fp
+  product: fr3
+  ip4: <%= IPAddr.new('192.168.1.100/32') %>
+  ip6: <%= IPAddr.new('3ffe:505:2::2') %>
+  mac: c9:53:2a:8e:32:e2
+  protocol: udp
+  upstream_secret: 
+  monitor_secret: 
+  switchboard_secret: 
+  require_message_authenticator: true
+  auth: true
+  acct: false
+  auth_port: 1812
+  acct_port: 1813
+
+ua_idp:
+  name: radius.ubuntunet.net
+  radiusable: ua (Organisation) 
+  server_type: idp_sp
+  product: fr3
+  ip4: <%= IPAddr.new('192.168.1.110/32') %>
+  ip6: 
+  mac: 60:ec:f0:b9:f9:fe
+  protocol: udp
+  upstream_secret: 
+  monitor_secret: 
+  switchboard_secret: 
+  require_message_authenticator: true
+  auth: true
+  acct: true
+  auth_port: 1812
+  acct_port: 1813
+
+africa_rp1:
+  name: radius.eduroam.africa
+  radiusable: ua (Confederation) 
+  server_type: rp
+  product: fr3
+  ip4: <%= IPAddr.new('192.168.1.110/32') %>
+  ip6: 
+  mac: 60:ec:f0:b9:f9:ff
+  protocol: udp
+  upstream_secret: 
+  monitor_secret: 
+  switchboard_secret:
+  require_message_authenticator: true
+  auth: true
+  acct: true
+  auth_port: 1812
+  acct_port: 1813
